@@ -37,4 +37,15 @@ public class Utils {
         boolean isShow =  ++adsCheck > 0 && random.nextInt() % ADS_SHOW_RATIO ==0;
         return isShow;
     }
+
+    public static int limit(int value, int minimal, int maximum){
+        if(value < minimal){
+            return minimal;
+        }
+
+        if(value > maximum){
+            return maximum;
+        }
+        return  value;
+    }
 }
