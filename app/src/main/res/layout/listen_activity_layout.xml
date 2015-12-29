@@ -4,11 +4,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/listen_background"
+    android:weightSum="1920"
     >
-    <com.lovelybroteam.listenexercise.control.CustomSeekBar
-        android:id="@+id/redSeekBar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/listen_thumb_height"
-        />
+        android:layout_height="0dp"
+        android:layout_weight="162"
+        android:padding="5dp"
+        android:background="@drawable/listen_top_background"
+        >
+        <com.lovelybroteam.listenexercise.control.EffectImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/back_button"
+            android:adjustViewBounds="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/listen_title"
+            android:textColor="#fff"
+            android:textAllCaps="true"
+            android:textSize="30sp"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="208"
+        android:orientation="vertical"
+        android:weightSum="2"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Listen and choose the correct answer: "
+            android:textSize="20sp"
+            android:textColor="#fff"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1/10"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="328"
+        android:background="#26b2b0ef"
+        >
+        <com.lovelybroteam.listenexercise.control.CustomSeekBar
+            android:id="@+id/redSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/listen_thumb_height"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/listen_line_height"
+            android:layout_alignParentBottom="true"
+            android:background="#fff" />
+    </RelativeLayout>
+
 
 </LinearLayout>
