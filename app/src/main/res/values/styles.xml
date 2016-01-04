@@ -25,4 +25,22 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:weightSum">1080</item>
     </style>
+    <style name="MediaBorder">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/listen_line_height</item>
+        <item name="android:background">#fff</item>
+    </style>
+    <style name="MediaButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+    <style name="ListenTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_title_size</item>
+        <item name="android:padding">@dimen/text_title_padding</item>
+        <item name="android:textColor">#fff</item>
+    </style>
 </resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/media_control_height"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/listen_thumb_half_height"
+        >
+        <View
+            style="@style/MediaBorder" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/listen_line_height"
+            android:layout_marginBottom="@dimen/listen_line_height"
+            android:paddingTop="@dimen/media_control_height_padding"
+            android:paddingBottom="@dimen/media_control_height_padding"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@color/media_control_background"
+            >
+
+            <com.lovelybroteam.listenexercise.control.EffectImageView
+                android:id="@+id/button_previous"
+                android:src="@drawable/listen_button_previous"
+                android:layout_margin="@dimen/media_control_button_margin"
+                style="@style/MediaButton"
+                />
+            <com.lovelybroteam.listenexercise.control.EffectImageView
+                android:id="@+id/button_play"
+                android:src="@drawable/listen_button_play"
+                style="@style/MediaButton"
+                />
+            <com.lovelybroteam.listenexercise.control.EffectImageView
+                android:id="@+id/button_next"
+                android:src="@drawable/listen_button_next"
+                android:layout_margin="@dimen/media_control_button_margin"
+                style="@style/MediaButton"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_alignParentBottom="true"
+            style="@style/MediaBorder" />
+    </RelativeLayout>
+    <com.lovelybroteam.listenexercise.control.CustomSeekBar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/listen_thumb_height"
+        />
+</RelativeLayout>

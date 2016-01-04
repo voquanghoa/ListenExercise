@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_title_height"
+    android:padding="@dimen/app_title_padding"
+    android:background="@color/app_title_background"
+    >
+    <com.lovelybroteam.listenexercise.control.EffectImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_button"
+        android:adjustViewBounds="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/listen_title"
+        android:textColor="#fff"
+        android:textAllCaps="true"
+        android:textSize="30sp"
+        />
+</RelativeLayout>
