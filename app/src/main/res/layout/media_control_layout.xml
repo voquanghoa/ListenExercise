@@ -42,7 +42,6 @@
                 style="@style/MediaButton"
                 />
         </LinearLayout>
-
         <View
             android:layout_alignParentBottom="true"
             style="@style/MediaBorder" />

@@ -19,6 +19,6 @@
         android:text="@string/listen_title"
         android:textColor="#fff"
         android:textAllCaps="true"
-        android:textSize="30sp"
+        android:textSize="25sp"
         />
 </RelativeLayout>

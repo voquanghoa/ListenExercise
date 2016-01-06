@@ -1,52 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/listen_background"
-    >
-    <com.lovelybroteam.listenexercise.control.AppTitleControl
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:background="@drawable/listen_background">
+
     <LinearLayout
+        android:id="@+id/topLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:text="Listen and choose the correct answer: "
-            style="@style/ListenTextView"
-            />
-        <TextView
-            android:text="1/10"
-            style="@style/ListenTextView"
-            />
+        android:orientation="vertical">
+
+        <com.lovelybroteam.listenexercise.control.AppTitleControl
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/ListenTextView"
+                android:text="Listen and choose the correct answer: 1/10" />
+        </LinearLayout>
+
+        <com.lovelybroteam.listenexercise.control.CustomMediaControl
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/question_image_height">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/question_cover" />
+        </RelativeLayout>
     </LinearLayout>
-    <com.lovelybroteam.listenexercise.control.CustomMediaControl
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/question_image_height">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"
-            android:src="@drawable/question_cover"
-            />
-    </RelativeLayout>
+
     <ScrollView
+        android:id="@+id/textLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ff0"
-        >
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topLayout"
+        android:layout_above="@+id/adsLayout"
+        android:background="#ff0">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/question_content"
-            />
+            android:text="@string/question_content" />
     </ScrollView>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/adsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:background="#0f0" />
+    </RelativeLayout>
+</RelativeLayout>
