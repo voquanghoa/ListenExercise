@@ -37,10 +37,14 @@
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:src="@drawable/main_menu_exercise"
+                android:tag="Exercise"
+                android:onClick="onListenClick"
                 style="@style/MainMenuButton"
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:src="@drawable/main_menu_toefl_icon"
+                android:tag="Toefl"
+                android:onClick="onListenClick"
                 style="@style/MainMenuButton"
                 />
             <View
@@ -55,10 +59,14 @@
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:src="@drawable/main_menu_toeic"
+                android:tag="TOEIC"
+                android:onClick="onListenClick"
                 style="@style/MainMenuButton"
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
-                android:src="@drawable/main_menu_common_comunication"
+                android:src="@drawable/main_menu_common_communication"
+                android:tag="Common_communication"
+                android:onClick="onListenClick"
                 style="@style/MainMenuButton"
                 />
             <View
@@ -73,10 +81,14 @@
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:src="@drawable/main_menu_daily_english"
+                android:tag="Daily_english"
+                android:onClick="onListenClick"
                 style="@style/MainMenuButton"
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:src="@drawable/main_menu_mananize_listen"
+                android:tag="Magazine_listen"
+                android:onClick="onListenClick"
                 style="@style/MainMenuButton"
                 />
             <View

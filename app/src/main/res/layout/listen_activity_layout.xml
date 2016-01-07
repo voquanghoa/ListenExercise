@@ -27,19 +27,6 @@
         <com.lovelybroteam.listenexercise.control.CustomMediaControl
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/question_image_height">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/question_cover" />
-        </RelativeLayout>
     </LinearLayout>
 
     <ScrollView
@@ -48,11 +35,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/topLayout"
         android:layout_above="@+id/adsLayout"
-        android:background="#ff0">
+        >
 
         <TextView
+            android:id="@+id/test_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#fff"
             android:text="@string/question_content" />
     </ScrollView>
 

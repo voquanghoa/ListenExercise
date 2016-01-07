@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Listen Exercise</string>
     <string name="listen_title">TITLE</string>
+    <string name="download_message">Getting data from server. Please wait....</string>
+    <string name="download_cancel_message">Downloading has been stopped.</string>
+    <string name="download_fail_message">Download fail. Please check your internet connection.</string>
     <string name="question_content">IN SHORT You have an Android device. Now you need some apps. We can help.  Nothing has changed our mobile lives more than apps. Applications, that is. And Android apps in particular. With them we can do just about anything. Communicate with friends and family. Pass the time with a game. Record the important moments in our lives, and share those moments almost instantaneously. Apps help us find our way. They help guide us.  And we, in turn, can help guide you to some of our favorite apps. We can\'t cover everything. But we\'ll strive to bring you the best of the best. With new apps arriving every day, it may be hard to keep up with the latest and greatest — but not to worry. Here is where we\'ll keep all of the top apps we come across — from launchers to podcast apps to music players and more — so you\'ll never have to dig too deep to find the best apps right now.  So sit back, relax and take a gander at what we have to offer here as the best Android apps!  Want us to review your app? Start here</string>
 </resources>

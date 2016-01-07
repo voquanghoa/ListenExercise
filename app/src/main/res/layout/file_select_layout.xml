@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/liner_layout_main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <ListView
+        android:id="@+id/list_item"
+        android:layout_above="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="multipleChoice"
+        android:descendantFocusability="afterDescendants"
+        >
+    </ListView>
+    <RelativeLayout
+        android:id="@+id/adView"
+        style="@style/AdsPanel"
+     />
+</RelativeLayout>
