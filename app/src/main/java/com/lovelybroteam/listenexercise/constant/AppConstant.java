@@ -9,4 +9,5 @@ public interface AppConstant {
     String CHARSET = "UTF-8";
     String USER_RESULT_FILE = "user_result.json";
     String TEXT_FILE_EXTENSION = ".txt";
+    String AUDIO_FILE_EXTENSION = ".mp3";
 }

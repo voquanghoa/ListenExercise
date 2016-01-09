@@ -11,7 +11,9 @@
         android:layout_marginTop="@dimen/listen_thumb_half_height"
         >
         <View
-            style="@style/MediaBorder" />
+            style="@style/MediaBorder"
+            android:visibility="invisible"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,22 +25,24 @@
             android:gravity="center"
             android:background="@color/media_control_background"
             >
-
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:id="@+id/button_previous"
                 android:src="@drawable/listen_button_previous"
                 android:layout_margin="@dimen/media_control_button_margin"
                 style="@style/MediaButton"
+                android:onClick="onPrevious"
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:id="@+id/button_play"
                 android:src="@drawable/listen_button_play"
+                android:onClick="onPlay"
                 style="@style/MediaButton"
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:id="@+id/button_next"
                 android:src="@drawable/listen_button_next"
                 android:layout_margin="@dimen/media_control_button_margin"
+                android:onClick="onNext"
                 style="@style/MediaButton"
                 />
         </LinearLayout>
@@ -47,6 +51,7 @@
             style="@style/MediaBorder" />
     </RelativeLayout>
     <com.lovelybroteam.listenexercise.control.CustomSeekBar
+        android:id="@+id/media_seekbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/listen_thumb_height"
         />
