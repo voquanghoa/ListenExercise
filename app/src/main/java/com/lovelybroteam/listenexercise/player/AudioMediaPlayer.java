@@ -54,13 +54,16 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
             if(mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
             }else {
+                if(mediaPlayer.getDuration()<=mediaPlayer.getCurrentPosition()){
+                    mediaPlayer.seekTo(0);
+                }
                 mediaPlayer.start();
             }
         }
     }
 
     public void seekTo(int percent){
-        if(mediaPlayer.isPlaying()){
+        if(isReady){
             int newPosition = percent*mediaPlayer.getDuration()/100;
             mediaPlayer.seekTo(newPosition);
             if(!mediaPlayer.isPlaying()){
@@ -82,9 +85,16 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
         super.finalize();
     }
 
+    public boolean isPlaying(){
+        return mediaPlayer.isPlaying();
+    }
+
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        audioMediaPlayerListener.onLoadError("");
-        isError = true;
+        if(what>0){
+            audioMediaPlayerListener.onLoadError("");
+            isError = true;
+        }
+
         return false;
     }
 

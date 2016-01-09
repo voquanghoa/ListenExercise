@@ -11,6 +11,7 @@ import com.lovelybroteam.listenexercise.R;
  * Created by Vo Quang Hoa on 1/4/2016.
  */
 public class CustomMediaControl extends RelativeLayout{
+    private EffectImageView playButton;
 
     public CustomMediaControl(Context context) {
         super(context);
@@ -29,5 +30,12 @@ public class CustomMediaControl extends RelativeLayout{
 
     private void initView(){
         LayoutInflater.from(getContext()).inflate(R.layout.media_control_layout, this, true);
+        playButton = (EffectImageView) findViewById(R.id.button_play);
+    }
+
+    public void setPlayState(boolean isPlaying){
+        if( playButton.isActivated() != isPlaying){
+            playButton.setActivated(isPlaying);
+        }
     }
 }

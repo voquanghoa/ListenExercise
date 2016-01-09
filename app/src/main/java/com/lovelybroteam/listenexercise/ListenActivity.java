@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.lovelybroteam.listenexercise.api.IAudioMediaPlayerListener;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.control.BaseActivity;
+import com.lovelybroteam.listenexercise.control.CustomMediaControl;
 import com.lovelybroteam.listenexercise.control.CustomSeekBar;
 import com.lovelybroteam.listenexercise.controller.DataController;
 import com.lovelybroteam.listenexercise.controller.HttpDownloadController;
@@ -25,10 +26,12 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     private AudioMediaPlayer audioMediaPlayer;
     private int currentAudioDuration;
     private CustomSeekBar customSeekBar;
+    private CustomMediaControl customMediaControl;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listen_activity_layout);
+        customMediaControl = (CustomMediaControl)findViewById(R.id.custom_media_control);
         customSeekBar =(CustomSeekBar) findViewById(R.id.media_seekbar);
         customSeekBar.setOnUserChanged(new Runnable() {
             public void run() {
@@ -111,6 +114,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
                             ListenActivity.this.runOnUiThread(new Runnable() {
                                 public void run() {
                                     customSeekBar.setPercent(100 * currentPosition / duration);
+                                    customMediaControl.setPlayState(audioMediaPlayer.isPlaying());
                                 }
                             });
                         }

@@ -25,6 +25,7 @@
         </LinearLayout>
 
         <com.lovelybroteam.listenexercise.control.CustomMediaControl
+            android:id="@+id/custom_media_control"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

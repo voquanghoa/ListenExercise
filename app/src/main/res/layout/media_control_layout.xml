@@ -34,7 +34,7 @@
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:id="@+id/button_play"
-                android:src="@drawable/listen_button_play"
+                android:src="@drawable/play_button_drawable"
                 android:onClick="onPlay"
                 style="@style/MediaButton"
                 />
