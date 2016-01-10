@@ -64,9 +64,13 @@ public class FileSelectAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final DataItem rowDataItem = (DataItem) getItem(position);
 
-        convertView = createView(rowDataItem);
+        if (convertView == null){
+            convertView = LayoutInflater.from(context).inflate(R.layout.data_item_layout, null);
+        }
 
-        TextView button =  (TextView)convertView.findViewById(R.id.button_main_menu);
+        View inUsedView = getInUsedView(convertView, rowDataItem);
+
+        TextView button =  (TextView)inUsedView.findViewById(R.id.button_main_menu);
         View.OnClickListener onClickListener = new View.OnClickListener(){
             public void onClick(View v) {
                 List<DataItem> localChildren = rowDataItem.getChildren();
@@ -83,11 +87,11 @@ public class FileSelectAdapter extends BaseAdapter {
         };
 
         if(rowDataItem.isFileTest()){
-            setUserResult(rowDataItem, convertView);
+            setUserResult(rowDataItem, inUsedView);
         }
 
         button.setOnClickListener(onClickListener);
-        convertView.setOnClickListener(onClickListener);
+        inUsedView.setOnClickListener(onClickListener);
 
         button.setText(rowDataItem.getDisplay());
         return convertView;
@@ -122,15 +126,19 @@ public class FileSelectAdapter extends BaseAdapter {
         return sb.toString();
     }
 
-    private View createView(DataItem dataItem){
-        //NOTED : Implement pool object if any issue relative to memory leak or performance here
-        int layout =  R.layout.data_item_folder_layout;
+    private View getInUsedView(View convertView, DataItem dataItem){
+        View fileView = convertView.findViewById(R.id.file_data_item_select_layout);
+        View folderView = convertView.findViewById(R.id.folder_data_item_select_layout);
 
         if(dataItem.isFileTest()){
-            layout = R.layout.data_item_file_test;
+            fileView.setVisibility(View.VISIBLE);
+            folderView.setVisibility(View.GONE);
+            return fileView;
+        }else{
+            folderView.setVisibility(View.VISIBLE);
+            fileView.setVisibility(View.GONE);
+            return folderView;
         }
-
-        return LayoutInflater.from(context).inflate(layout, null);
     }
 
     public interface FileSelectFeedback {

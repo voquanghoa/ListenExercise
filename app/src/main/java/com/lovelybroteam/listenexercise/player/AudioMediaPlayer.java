@@ -35,7 +35,7 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
     }
 
     public int getDuration(){
-        return mediaPlayer.getDuration();
+        return isReady ? mediaPlayer.getDuration() : 0;
     }
 
     public void onPrepared(MediaPlayer mp) {
@@ -46,7 +46,7 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
         }
     }
 
-    public void toggePlay() throws Exception {
+    public void togglePlay() throws Exception {
         if(isError){
             throw new Exception("Can not play the file");
         }

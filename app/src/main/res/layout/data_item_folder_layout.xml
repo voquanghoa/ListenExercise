@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/RowItemStyle"
+    android:id="@+id/folder_data_item_select_layout"
     >
     <ImageView
         android:id="@+id/row_icon"

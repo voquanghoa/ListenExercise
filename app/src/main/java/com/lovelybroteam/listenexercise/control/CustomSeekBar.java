@@ -21,7 +21,7 @@ public class CustomSeekBar extends View {
     private Bitmap thumb;
     private Bitmap drawThumb;
     private int percent, drawPercent;
-    private final double progressBarHeightRatio = 0.2;
+    private final double progressBarHeightRatio = 0.09;
 
     private int width, height, lineSize;
     private Paint backgroundPaint;
@@ -68,6 +68,9 @@ public class CustomSeekBar extends View {
     public void draw(Canvas canvas) {
         int height1 = (int)(height*(1-progressBarHeightRatio)/2);
         int height2 = (int)(height*(1+progressBarHeightRatio)/2);
+
+        height2 = Math.max(height1+2, height2);
+
         int x = height/2 + lineSize * drawPercent / 100;
 
         if(x<height/2){
