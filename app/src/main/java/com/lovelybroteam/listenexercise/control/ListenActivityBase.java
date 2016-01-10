@@ -103,39 +103,45 @@ public abstract class ListenActivityBase extends BaseActivity implements IAudioM
     }
 
     public void finish() {
+        audioMediaPlayer.release();
         audioMediaPlayer = null;
         super.finish();
+    }
+
+    protected void onPause() {
+        audioMediaPlayer.pause();
+        super.onPause();
     }
 
     private void showCurrentPosition(){
         new Thread(new Runnable() {
             public void run() {
                 while (audioMediaPlayer!=null){
-                    synchronized (audioMediaPlayer){
-                        final int currentPosition = audioMediaPlayer.getCurrentPosition();
-                        final int duration = audioMediaPlayer.getDuration();
-
-                        if(duration >0){
-                            updateAudioProgress(currentPosition, duration);
-                        }
-                        try {
-                            Thread.sleep(200);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    updateAudioProgress();
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             }
         }).start();
     }
 
-    private void updateAudioProgress(final int currentPosition, final int duration) {
-        ListenActivityBase.this.runOnUiThread(new Runnable() {
-            public void run() {
-                customSeekBar.setPercent(100 * currentPosition / duration);
-                customMediaControl.setPlayState(audioMediaPlayer.isPlaying());
+    private synchronized void updateAudioProgress() {
+        if( audioMediaPlayer != null ){
+            final int currentPosition = audioMediaPlayer.getCurrentPosition();
+            final int duration = audioMediaPlayer.getDuration();
+
+            if(duration >0){
+                ListenActivityBase.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        customSeekBar.setPercent(100 * currentPosition / duration);
+                        customMediaControl.setPlayState(audioMediaPlayer.isPlaying());
+                    }
+                });
             }
-        });
+        }
     }
 
     protected abstract void showTextContent(String content);

@@ -46,6 +46,14 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
         }
     }
 
+    public void pause(){
+        if(isReady && !isRelease) {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+            }
+        }
+    }
+
     public void togglePlay() throws Exception {
         if(isError){
             throw new Exception("Can not play the file");
@@ -72,10 +80,12 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
         }
     }
 
-    public void release() throws IOException {
-        if(!isRelease){
+    public synchronized void release() {
+        if(!isRelease && mediaPlayer!= null){
             isRelease = true;
-            mediaPlayer.prepare();
+            isReady = false;
+            mediaPlayer.stop();
+            mediaPlayer.release();
             mediaPlayer = null;
         }
     }

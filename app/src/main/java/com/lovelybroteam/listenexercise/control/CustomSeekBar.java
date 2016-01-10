@@ -21,7 +21,7 @@ public class CustomSeekBar extends View {
     private Bitmap thumb;
     private Bitmap drawThumb;
     private int percent, drawPercent;
-    private final double progressBarHeightRatio = 0.09;
+    private final double progressBarHeightRatio = 0.07;
 
     private int width, height, lineSize;
     private Paint backgroundPaint;

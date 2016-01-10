@@ -10,13 +10,13 @@ import com.lovelybroteam.listenexercise.control.ListenActivityBase;
 public class ListenActivity extends ListenActivityBase {
     private TextView _textView;
 
-    protected int getLayout() {
-        return R.layout.listen_activity_layout;
-    }
-
     protected void initViewElements(){
         super.initViewElements();
         _textView = (TextView)findViewById(R.id.test_content);
+    }
+
+    protected int getChildView() {
+        return R.layout.common_communication_child_layout;
     }
 
     protected void showTextContent(String content) {
