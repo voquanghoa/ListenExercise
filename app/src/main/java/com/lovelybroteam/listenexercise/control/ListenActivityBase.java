@@ -1,7 +1,9 @@
 package com.lovelybroteam.listenexercise.control;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ScrollView;
 
 import com.lovelybroteam.listenexercise.R;
 import com.lovelybroteam.listenexercise.api.IAudioMediaPlayerListener;
@@ -23,15 +25,17 @@ public abstract class ListenActivityBase extends BaseActivity implements IAudioM
     private int currentAudioDuration;
     private CustomSeekBar customSeekBar;
     private CustomMediaControl customMediaControl;
+    private ScrollView textContentScrollView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayout());
+        setContentView(R.layout.listen_activity_layout);
         initViewElements();
         loadData(DataController.getInstance().getCurrentShowFolderPath(), DataController.getInstance().getCurrentShowDataItem());
     }
 
     protected void initViewElements(){
+        textContentScrollView = (ScrollView)findViewById(R.id.text_scroll_view);
         customMediaControl = (CustomMediaControl)findViewById(R.id.custom_media_control);
         customSeekBar =(CustomSeekBar) findViewById(R.id.media_seekbar);
         customSeekBar.setOnUserChanged(new Runnable() {
@@ -41,11 +45,14 @@ public abstract class ListenActivityBase extends BaseActivity implements IAudioM
         });
 
         audioMediaPlayer = new AudioMediaPlayer(this);
+        LayoutInflater.from(this).inflate(getChildView(), textContentScrollView);
     }
+
+    protected abstract int getChildView();
 
     private void loadData(String folder, DataItem dataItem){
         try {
-            audioMediaPlayer.load(folder + dataItem.getFileName()+AUDIO_FILE_EXTENSION);
+            audioMediaPlayer.load(folder + dataItem.getFileName() + AUDIO_FILE_EXTENSION);
         } catch (IOException e) {
             Utils.Log(e);
         }
@@ -132,6 +139,4 @@ public abstract class ListenActivityBase extends BaseActivity implements IAudioM
     }
 
     protected abstract void showTextContent(String content);
-
-    protected abstract int getLayout();
 }
