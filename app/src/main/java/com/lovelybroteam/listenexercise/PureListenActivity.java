@@ -7,7 +7,7 @@ import com.lovelybroteam.listenexercise.control.ListenActivityBase;
 /**
  * Created by Vo Quang Hoa on 12/28/2015.
  */
-public class ListenActivity extends ListenActivityBase {
+public class PureListenActivity extends ListenActivityBase {
     private TextView _textView;
 
     protected void initViewElements(){
