@@ -47,7 +47,6 @@ public class DataController implements AppConstant {
         }
     }
 
-
     public DataItem getCurrentShowDataItem() {
         return currentShowDataItem;
     }
