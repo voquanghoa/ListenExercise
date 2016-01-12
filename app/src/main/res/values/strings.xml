@@ -8,6 +8,6 @@
     <string name="download_message">Getting data from server. Please wait....</string>
     <string name="download_cancel_message">Downloading has been stopped.</string>
     <string name="download_fail_message">Download fail. Please check your internet connection.</string>
-    <string name="question_content"></string>
+    <string name="dialog_result_content" formatted="false">Correct: %2d/%2d \nTime test: </string>
 
 </resources>

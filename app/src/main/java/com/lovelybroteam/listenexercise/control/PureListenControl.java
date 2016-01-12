@@ -6,12 +6,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lovelybroteam.listenexercise.R;
+import com.lovelybroteam.listenexercise.api.IListenControl;
 import com.lovelybroteam.listenexercise.model.ListenContent;
 
 /**
  * Created by Vo Quang Hoa on 1/12/2016.
  */
-public class PureListenControl extends RelativeLayout {
+public class PureListenControl extends RelativeLayout implements IListenControl {
 
     private TextView scriptTextView;
 

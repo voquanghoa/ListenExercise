@@ -9,11 +9,13 @@ import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.control.BaseActivity;
 import com.lovelybroteam.listenexercise.control.CustomMediaControl;
 import com.lovelybroteam.listenexercise.control.CustomSeekBar;
+import com.lovelybroteam.listenexercise.control.ListenExerciseControl;
 import com.lovelybroteam.listenexercise.control.PureListenControl;
 import com.lovelybroteam.listenexercise.controller.DataController;
 import com.lovelybroteam.listenexercise.controller.HttpDownloadController;
 import com.lovelybroteam.listenexercise.controller.ListenContentController;
 import com.lovelybroteam.listenexercise.model.DataItem;
+import com.lovelybroteam.listenexercise.model.ListenContent;
 import com.lovelybroteam.listenexercise.player.AudioMediaPlayer;
 import com.lovelybroteam.listenexercise.util.Utils;
 
@@ -30,6 +32,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     private CustomMediaControl customMediaControl;
     private ScrollView textContentScrollView;
     private PureListenControl pureListenControl;
+    private ListenExerciseControl listenExerciseControl;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
 
         audioMediaPlayer = new AudioMediaPlayer(this);
         pureListenControl = new PureListenControl(this);
-        textContentScrollView.addView(pureListenControl);
+        listenExerciseControl = new ListenExerciseControl(this);
     }
 
     private void loadData(String folder, DataItem dataItem){
@@ -70,7 +73,16 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
 
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    pureListenControl.displayListenContent(ListenContentController.getInstance().getCurrentListenContent());
+                    textContentScrollView.removeAllViews();
+
+                    ListenContent listenContent = ListenContentController.getInstance().getCurrentListenContent();
+                    if(listenContent.getQuestions() == null || listenContent.getQuestions().size()==0){
+                        textContentScrollView.addView(pureListenControl);
+                        pureListenControl.displayListenContent(listenContent);
+                    }else{
+                        textContentScrollView.addView(listenExerciseControl);
+                        listenExerciseControl.displayListenContent(listenContent);
+                    }
                 }
             });
         } catch (UnsupportedEncodingException e) {
