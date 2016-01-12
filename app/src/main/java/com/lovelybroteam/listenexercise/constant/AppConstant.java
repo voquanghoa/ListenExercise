@@ -8,6 +8,6 @@ public interface AppConstant {
     String SERVER_BASE_PATH = "http://doanit.com/english4listen/";
     String CHARSET = "UTF-8";
     String USER_RESULT_FILE = "user_result.json";
-    String TEXT_FILE_EXTENSION = ".txt";
+    String TEXT_FILE_EXTENSION = ".json";
     String AUDIO_FILE_EXTENSION = ".mp3";
 }

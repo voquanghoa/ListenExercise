@@ -1,15 +1,18 @@
-package com.lovelybroteam.listenexercise.control;
+package com.lovelybroteam.listenexercise;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ScrollView;
 
-import com.lovelybroteam.listenexercise.R;
 import com.lovelybroteam.listenexercise.api.IAudioMediaPlayerListener;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
+import com.lovelybroteam.listenexercise.control.BaseActivity;
+import com.lovelybroteam.listenexercise.control.CustomMediaControl;
+import com.lovelybroteam.listenexercise.control.CustomSeekBar;
+import com.lovelybroteam.listenexercise.control.PureListenControl;
 import com.lovelybroteam.listenexercise.controller.DataController;
 import com.lovelybroteam.listenexercise.controller.HttpDownloadController;
+import com.lovelybroteam.listenexercise.controller.ListenContentController;
 import com.lovelybroteam.listenexercise.model.DataItem;
 import com.lovelybroteam.listenexercise.player.AudioMediaPlayer;
 import com.lovelybroteam.listenexercise.util.Utils;
@@ -20,12 +23,13 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by Vo Quang Hoa on 12/28/2015.
  */
-public abstract class ListenActivityBase extends BaseActivity implements IAudioMediaPlayerListener {
+public class ListenActivity extends BaseActivity implements IAudioMediaPlayerListener {
     private AudioMediaPlayer audioMediaPlayer;
     private int currentAudioDuration;
     private CustomSeekBar customSeekBar;
     private CustomMediaControl customMediaControl;
     private ScrollView textContentScrollView;
+    private PureListenControl pureListenControl;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +49,9 @@ public abstract class ListenActivityBase extends BaseActivity implements IAudioM
         });
 
         audioMediaPlayer = new AudioMediaPlayer(this);
-        LayoutInflater.from(this).inflate(getChildView(), textContentScrollView);
+        pureListenControl = new PureListenControl(this);
+        textContentScrollView.addView(pureListenControl);
     }
-
-    protected abstract int getChildView();
 
     private void loadData(String folder, DataItem dataItem){
         try {
@@ -63,9 +66,11 @@ public abstract class ListenActivityBase extends BaseActivity implements IAudioM
         super.onDownloadDone(url, data);
         try {
             final String content = new String(data, AppConstant.CHARSET);
+            ListenContentController.getInstance().loadJson(content);
+
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    showTextContent(content);
+                    pureListenControl.displayListenContent(ListenContentController.getInstance().getCurrentListenContent());
                 }
             });
         } catch (UnsupportedEncodingException e) {
@@ -103,13 +108,17 @@ public abstract class ListenActivityBase extends BaseActivity implements IAudioM
     }
 
     public void finish() {
-        audioMediaPlayer.release();
-        audioMediaPlayer = null;
+        if(audioMediaPlayer != null){
+            audioMediaPlayer.release();
+            audioMediaPlayer = null;
+        }
         super.finish();
     }
 
     protected void onPause() {
-        audioMediaPlayer.pause();
+        if(audioMediaPlayer!=null){
+            audioMediaPlayer.pause();
+        }
         super.onPause();
     }
 
@@ -134,7 +143,7 @@ public abstract class ListenActivityBase extends BaseActivity implements IAudioM
             final int duration = audioMediaPlayer.getDuration();
 
             if(duration >0){
-                ListenActivityBase.this.runOnUiThread(new Runnable() {
+                ListenActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
                         customSeekBar.setPercent(100 * currentPosition / duration);
                         customMediaControl.setPlayState(audioMediaPlayer.isPlaying());
@@ -143,6 +152,4 @@ public abstract class ListenActivityBase extends BaseActivity implements IAudioM
             }
         }
     }
-
-    protected abstract void showTextContent(String content);
 }

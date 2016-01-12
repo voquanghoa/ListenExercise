@@ -41,6 +41,6 @@ public class ListItemActivity extends BaseActivity implements FileSelectAdapter.
         DataController.getInstance().setCurrentShowDataFolder(folder);
         DataController.getInstance().setCurrentShowDataItem(file);
         DataController.getInstance().setCurrentShowFolderPath(folderPath);
-        startActivity(new Intent(this, ListenExerciseActivity.class));
+        startActivity(new Intent(this, ListenActivity.class));
     }
 }
