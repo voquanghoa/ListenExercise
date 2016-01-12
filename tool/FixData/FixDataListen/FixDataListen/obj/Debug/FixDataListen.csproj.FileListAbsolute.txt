@@ -1,0 +1,10 @@
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\bin\Debug\FixDataListen.exe
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\bin\Debug\FixDataListen.pdb
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\bin\Debug\Newtonsoft.Json.dll
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\bin\Debug\Newtonsoft.Json.xml
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\obj\Debug\FixDataListen.csprojResolveAssemblyReference.cache
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\obj\Debug\FixDataListen.Form1.resources
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\obj\Debug\FixDataListen.Properties.Resources.resources
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\obj\Debug\FixDataListen.csproj.GenerateResource.Cache
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\obj\Debug\FixDataListen.exe
+D:\Project\ListenExercise\tool\FixData\FixDataListen\FixDataListen\obj\Debug\FixDataListen.pdb
