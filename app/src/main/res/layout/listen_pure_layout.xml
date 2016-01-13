@@ -4,6 +4,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/adView"
+        style="@style/AdsPanel"
+        />
     <TextView
         android:id="@+id/test_content"
         style="@style/ConversationText" />

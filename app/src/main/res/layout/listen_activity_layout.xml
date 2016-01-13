@@ -29,19 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/topLayout"
-        android:layout_above="@+id/adsLayout"
+        android:layout_above="@+id/adView"
         >
 
     </ScrollView>
     <RelativeLayout
-        android:id="@+id/adsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        >
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="50px"
-            android:background="#0f0" />
-    </RelativeLayout>
+        android:id="@+id/adView"
+        style="@style/AdsPanel"
+        />
 </RelativeLayout>

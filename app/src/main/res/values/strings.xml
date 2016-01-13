@@ -13,5 +13,7 @@
     <string name="dialog_result_content" formatted="false">Correct: %2d/%2d</string>
     <string name="dialog_result_title">Your result</string>
     <string name="download_fail_exit">Sorry, we could not download the file.\nPlease try again later.</string>
+    <string name="admob_id">ca-app-pub-8190508285797907/3171395470</string>
+    <string name="admob_id_full_screen">ca-app-pub-3940256099942544/1033173712</string>
 
 </resources>

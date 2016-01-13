@@ -22,5 +22,5 @@
     <RelativeLayout
         android:id="@+id/adView"
         style="@style/AdsPanel"
-     />
+        />
 </RelativeLayout>
