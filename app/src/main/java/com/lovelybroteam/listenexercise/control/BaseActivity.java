@@ -150,4 +150,27 @@ public class BaseActivity extends Activity implements DialogInterface.OnCancelLi
         setProgressMessage("Download " + (done/1024)+" Kb/" + (total/1024)+" Kb.");
         setProgressDonePercent(done*100/total);
     }
+
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+
+        super.onDestroy();
+    }
+
 }

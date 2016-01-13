@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.ads.AdListener;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.control.BaseActivity;
 import com.lovelybroteam.listenexercise.controller.DataController;
@@ -17,7 +18,24 @@ public class MainActivity extends BaseActivity implements HttpDownloadController
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        loadFullAds();
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdClosed() {
+                finish();
+            }
+        });
     }
+
+    public void onBackPressed() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Utils.Log("DID NOT LOAD FULL SCREEN ADS");
+            super.onBackPressed();
+        }
+    }
+
 
     public void onListenClick(View view){
         currentSelectTag = view.getTag().toString();
