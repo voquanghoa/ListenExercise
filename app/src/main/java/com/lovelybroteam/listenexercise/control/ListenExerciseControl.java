@@ -1,7 +1,9 @@
 package com.lovelybroteam.listenexercise.control;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,27 +13,57 @@ import com.lovelybroteam.listenexercise.adapter.QuestionAnswerAdapter;
 import com.lovelybroteam.listenexercise.api.IListenControl;
 import com.lovelybroteam.listenexercise.model.ListenContent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Vo Quang Hoa on 1/12/2016.
  */
-public class ListenExerciseControl extends RelativeLayout implements IListenControl {
+public class ListenExerciseControl extends RelativeLayout implements IListenControl, View.OnClickListener {
     private TextView scriptTextView;
     private LinearLayout questionListView;
     private QuestionAnswerAdapter questionAnswerAdapter;
+    private List<View> questionViews;
+    private ListenContent listenContent;
 
     public ListenExerciseControl(Context context) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.listen_exercise_child_layout, this, true);
         scriptTextView = (TextView) findViewById(R.id.test_content);
         questionListView = (LinearLayout)findViewById(R.id.question_list_view);
+        questionViews= new ArrayList<View>();
+        findViewById(R.id.button_submit).setOnClickListener(this);
+        questionAnswerAdapter = new QuestionAnswerAdapter(getContext());
     }
 
     public void displayListenContent(ListenContent listenContent) {
+        this.listenContent = listenContent;
+        questionAnswerAdapter.setListenContent(listenContent);
+        refreshView();
+    }
+
+    public void refreshView(){
         scriptTextView.setText(listenContent.getScript());
-        questionAnswerAdapter = new QuestionAnswerAdapter(getContext(), listenContent);
+        questionListView.removeAllViews();
 
         for(int i=0, j=questionAnswerAdapter.getCount();i<j;i++){
-            questionListView.addView(questionAnswerAdapter.getView(i, null, null));
+            View view = null;
+            if(questionViews.size()>i){
+                view = questionAnswerAdapter.getView(i, questionViews.get(i), null);
+            }else{
+                view = questionAnswerAdapter.getView(i, null, null);
+                questionViews.add(view);
+            }
+            questionListView.addView(view);
+        }
+    }
+
+    public void onClick(View v) {
+        if(questionAnswerAdapter.isShowAnswer()){
+            ((Activity)getContext()).finish();
+        }else{
+            questionAnswerAdapter.setShowAnswer(true);
+            refreshView();
         }
     }
 }

@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 
 import com.lovelybroteam.listenexercise.api.IAudioMediaPlayerListener;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
+import com.lovelybroteam.listenexercise.util.Utils;
 
 import java.io.IOException;
 
@@ -43,6 +44,18 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
         if (!isRelease) {
             isReady = true;
             mp.start();
+        }else{
+            try {
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                }
+            }catch (Exception ex){
+                Utils.Log(ex);
+            }finally {
+                mediaPlayer = null;
+            }
         }
     }
 
@@ -81,12 +94,17 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
     }
 
     public synchronized void release() {
-        if(!isRelease && mediaPlayer!= null){
+        try {
+            if (isReady && !isRelease && mediaPlayer != null) {
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+        }catch (Exception ex){
+            Utils.Log(ex);
+        }finally {
             isRelease = true;
             isReady = false;
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = null;
         }
     }
 

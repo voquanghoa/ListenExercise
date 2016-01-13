@@ -26,8 +26,8 @@
             android:layout_height="1dp"
             android:layout_weight="1"/>
         <com.lovelybroteam.listenexercise.control.EffectImageView
+            android:id="@+id/button_submit"
             android:text="@string/submit"
-            android:onClick="onSubmit"
             style="@style/SubmitButtonStyle"
             />
         <View

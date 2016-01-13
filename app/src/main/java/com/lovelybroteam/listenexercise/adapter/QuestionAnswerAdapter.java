@@ -33,8 +33,11 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
             R.id.answer_d
     };
 
-    public QuestionAnswerAdapter(Context context, ListenContent listenContent) {
+    public QuestionAnswerAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setListenContent(ListenContent listenContent){
         this.listenContent = listenContent;
         initUserSelect();
     }

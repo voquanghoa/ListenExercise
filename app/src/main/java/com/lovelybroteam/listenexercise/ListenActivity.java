@@ -96,7 +96,6 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     }
 
     public void onLoadError(String message) {
-
     }
 
     public void onBuffer(int percent) {
