@@ -1,6 +1,8 @@
 package com.lovelybroteam.listenexercise;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ScrollView;
 
@@ -62,6 +64,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         } catch (IOException e) {
             Utils.Log(e);
         }
+        showLoadingDialog();
         HttpDownloadController.getInstance().startDownload(folder + dataItem.getFileName() + TEXT_FILE_EXTENSION, this);
     }
 
@@ -95,6 +98,25 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         showCurrentPosition();
     }
 
+    public void onDownloadFail(String message){
+        closeLoadingDialog();
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ListenActivity.this);
+                alertDialogBuilder
+                        .setTitle(R.string.download_fail)
+                        .setMessage(R.string.download_fail_exit)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                ListenActivity.this.finish();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+    }
     public void onLoadError(String message) {
     }
 

@@ -63,9 +63,8 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
         return correct;
     }
 
-    public String getResultAsString(String timeDuration) {
-        return String.format(this.context.getString(R.string.dialog_result_content), getCorrects(), getTotal()) +
-                timeDuration;
+    public String getResultAsString() {
+        return String.format(this.context.getString(R.string.dialog_result_content), getCorrects(), getTotal());
     }
 
     public boolean isShowAnswer() {

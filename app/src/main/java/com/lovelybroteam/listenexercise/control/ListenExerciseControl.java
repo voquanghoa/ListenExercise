@@ -2,6 +2,8 @@ package com.lovelybroteam.listenexercise.control;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,6 +27,7 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
     private QuestionAnswerAdapter questionAnswerAdapter;
     private List<View> questionViews;
     private ListenContent listenContent;
+    private EffectImageView effectImageViewSubmit;
 
     public ListenExerciseControl(Context context) {
         super(context);
@@ -32,7 +35,8 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
         scriptTextView = (TextView) findViewById(R.id.test_content);
         questionListView = (LinearLayout)findViewById(R.id.question_list_view);
         questionViews= new ArrayList<View>();
-        findViewById(R.id.button_submit).setOnClickListener(this);
+        effectImageViewSubmit = (EffectImageView)findViewById(R.id.button_submit);
+        effectImageViewSubmit.setOnClickListener(this);
         questionAnswerAdapter = new QuestionAnswerAdapter(getContext());
     }
 
@@ -42,7 +46,7 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
         refreshView();
     }
 
-    public void refreshView(){
+    public void refreshView() {
         scriptTextView.setText(listenContent.getScript());
         questionListView.removeAllViews();
 
@@ -63,7 +67,24 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
             ((Activity)getContext()).finish();
         }else{
             questionAnswerAdapter.setShowAnswer(true);
-            refreshView();
+            showResult();
         }
+    }
+
+    public void showResult(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        alertDialogBuilder
+                .setTitle(R.string.dialog_result_title)
+                .setMessage(questionAnswerAdapter.getResultAsString())
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                questionAnswerAdapter.setShowAnswer(true);
+                                refreshView();
+                                //effectImageViewSubmit.setText(R.string.finish);
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
