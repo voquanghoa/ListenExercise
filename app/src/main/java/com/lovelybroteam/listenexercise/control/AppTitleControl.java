@@ -27,6 +27,6 @@ public class AppTitleControl extends RelativeLayout {
     }
 
     private void initView(){
-        LayoutInflater.from(getContext()).inflate(R.layout.app_title_layout, this, true);
+        LayoutInflater.from(getContext()).inflate(R.layout.app_title_layout_new, this, true);
     }
 }

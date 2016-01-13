@@ -5,7 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="media_control_background">#3008</color>
     <color name="app_title_background">#3008</color>
-
+    <color name="app_title">#000000</color>
+    <color name="app_title_text">#FFFFFF</color>
     <color name="media_seekbar_background_color">#fff</color>
     <color name="media_seekbar_buffer_color">#0f0</color>
 </resources>
