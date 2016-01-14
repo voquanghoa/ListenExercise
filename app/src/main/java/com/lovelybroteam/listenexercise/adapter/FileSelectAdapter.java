@@ -11,6 +11,7 @@ import com.lovelybroteam.listenexercise.R;
 import com.lovelybroteam.listenexercise.controller.UserResultController;
 import com.lovelybroteam.listenexercise.model.DataItem;
 import com.lovelybroteam.listenexercise.model.UserResult;
+import com.lovelybroteam.listenexercise.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,7 @@ public class FileSelectAdapter extends BaseAdapter {
                 }else if(selectFeedback!=null){
                     if(rowDataItem.isFileTest()){
                         selectFeedback.openFile(getCurrentPath(), dataItem, rowDataItem);
+                        Utils.Log(getCurrentPath());
                     }
                 }
             }

@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <com.lovelybroteam.listenexercise.control.AppTitleControl
+            android:id="@+id/app_title_control"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <LinearLayout
@@ -16,8 +17,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                style="@style/ListenTextView"
-                android:text="Listen and choose the correct answer: 1/10" />
+                android:id="@+id/text_question_title"
+                style="@style/ListenTextView"/>
         </LinearLayout>
         <com.lovelybroteam.listenexercise.control.CustomMediaControl
             android:id="@+id/custom_media_control"

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.lovelybroteam.listenexercise.R;
 import com.lovelybroteam.listenexercise.adapter.QuestionAnswerAdapter;
 import com.lovelybroteam.listenexercise.api.IListenControl;
+import com.lovelybroteam.listenexercise.controller.UserResultController;
 import com.lovelybroteam.listenexercise.model.ListenContent;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
     private List<View> questionViews;
     private ListenContent listenContent;
     private EffectImageView effectImageViewSubmit;
+    private String currentFileName;
 
     public ListenExerciseControl(Context context) {
         super(context);
@@ -41,9 +43,11 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
         scriptTextView.setVisibility(GONE);
     }
 
-    public void displayListenContent(ListenContent listenContent) {
+    public void displayListenContent(ListenContent listenContent, String filePath) {
         this.listenContent = listenContent;
         scriptTextView.setVisibility(GONE);
+        currentFileName = filePath;
+        questionAnswerAdapter.setShowAnswer(false);
         questionAnswerAdapter.setListenContent(listenContent);
         refreshView();
     }
@@ -71,6 +75,8 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
             questionAnswerAdapter.setShowAnswer(true);
             scriptTextView.setVisibility(VISIBLE);
             showResult();
+            UserResultController.getInstance().setResult(currentFileName,
+                    questionAnswerAdapter.getCorrects(), questionAnswerAdapter.getTotal());
         }
     }
 

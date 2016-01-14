@@ -15,5 +15,8 @@
     <string name="download_fail_exit">Sorry, we could not download the file.\nPlease try again later.</string>
     <string name="admob_id">ca-app-pub-8190508285797907/3097233071</string>
     <string name="admob_id_full_screen">ca-app-pub-8190508285797907/4573966279</string>
-
+    <string name="first_question_warning">You are listening the first conversation!</string>
+    <string name="last_question_warning">You are listening the last conversation!</string>
+    <string name="listen_title_format" formatted="false">Listen and choose the correct answer: %d/%d</string>
+    <string name="listen_title_no_format" formatted="false">Listen the conversation</string>
 </resources>

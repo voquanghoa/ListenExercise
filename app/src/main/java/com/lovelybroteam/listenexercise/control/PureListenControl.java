@@ -26,7 +26,7 @@ public class PureListenControl extends RelativeLayout implements IListenControl,
         effectImageViewSubmit.setOnClickListener(this);
     }
 
-    public void displayListenContent(ListenContent listenContent){
+    public void displayListenContent(ListenContent listenContent, String url){
         scriptTextView.setText(listenContent.getScript());
     }
 

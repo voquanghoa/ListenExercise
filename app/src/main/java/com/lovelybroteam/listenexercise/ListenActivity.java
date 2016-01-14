@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.lovelybroteam.listenexercise.api.IAudioMediaPlayerListener;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
+import com.lovelybroteam.listenexercise.control.AppTitleControl;
 import com.lovelybroteam.listenexercise.control.BaseActivity;
 import com.lovelybroteam.listenexercise.control.CustomMediaControl;
 import com.lovelybroteam.listenexercise.control.CustomSeekBar;
@@ -30,23 +32,26 @@ import java.io.UnsupportedEncodingException;
  */
 public class ListenActivity extends BaseActivity implements IAudioMediaPlayerListener {
     private AudioMediaPlayer audioMediaPlayer;
-    private int currentAudioDuration;
     private CustomSeekBar customSeekBar;
     private CustomMediaControl customMediaControl;
     private ScrollView textContentScrollView;
     private PureListenControl pureListenControl;
     private ListenExerciseControl listenExerciseControl;
     private boolean isNeedShowAds;
+    private AppTitleControl appTitleControl;
+    private TextView questionHeaderTextView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isNeedShowAds = Utils.checkAds();
         setContentView(R.layout.listen_activity_layout);
         initViewElements();
-        loadData(DataController.getInstance().getCurrentShowFolderPath(), DataController.getInstance().getCurrentShowDataItem());
+        loadData();
     }
 
     protected void initViewElements(){
+        questionHeaderTextView = (TextView)findViewById(R.id.text_question_title);
+        appTitleControl = (AppTitleControl)findViewById(R.id.app_title_control);
         textContentScrollView = (ScrollView)findViewById(R.id.text_scroll_view);
         customMediaControl = (CustomMediaControl)findViewById(R.id.custom_media_control);
         customSeekBar =(CustomSeekBar) findViewById(R.id.media_seekbar);
@@ -61,7 +66,15 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         listenExerciseControl = new ListenExerciseControl(this);
     }
 
+    private void loadData(){
+        loadData(DataController.getInstance().getCurrentShowFolderPath(), DataController.getInstance().getCurrentShowDataItem());
+    }
+
     private void loadData(String folder, DataItem dataItem){
+        appTitleControl.setTitle(dataItem.getDisplay());
+        customSeekBar.setPercent(0);
+        customSeekBar.setBufferPercent(0);
+        reInitAudioMediaPlayer();
         try {
             audioMediaPlayer.load(folder + dataItem.getFileName() + AUDIO_FILE_EXTENSION);
         } catch (IOException e) {
@@ -71,23 +84,41 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         HttpDownloadController.getInstance().startDownload(folder + dataItem.getFileName() + TEXT_FILE_EXTENSION, this);
     }
 
-    public void onDownloadDone(String url, byte[] data) {
+    private void reInitAudioMediaPlayer() {
+        try {
+            if (audioMediaPlayer != null) {
+                audioMediaPlayer.release();
+            }
+        }catch (Exception ex){
+            Utils.Log(ex);
+        }finally {
+            audioMediaPlayer = null;
+            audioMediaPlayer = new AudioMediaPlayer(this);
+        }
+    }
+
+    public void onDownloadDone(final String url, byte[] data) {
         super.onDownloadDone(url, data);
+        final String currentFileName = url.replace(AppConstant.SERVER_BASE_PATH,"").
+                replace(AppConstant.TEXT_FILE_EXTENSION,"");
         try {
             final String content = new String(data, AppConstant.CHARSET);
             ListenContentController.getInstance().loadJson(content);
 
+
             this.runOnUiThread(new Runnable() {
                 public void run() {
+                    textContentScrollView.scrollTo(0,0);
+                    updateTitle();
                     textContentScrollView.removeAllViews();
 
                     ListenContent listenContent = ListenContentController.getInstance().getCurrentListenContent();
                     if(listenContent.getQuestions() == null || listenContent.getQuestions().size()==0){
                         textContentScrollView.addView(pureListenControl);
-                        pureListenControl.displayListenContent(listenContent);
+                        pureListenControl.displayListenContent(listenContent, currentFileName);
                     }else{
                         textContentScrollView.addView(listenExerciseControl);
-                        listenExerciseControl.displayListenContent(listenContent);
+                        listenExerciseControl.displayListenContent(listenContent, currentFileName);
                     }
                 }
             });
@@ -96,8 +127,18 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         }
     }
 
-    public void onLoadDone(int duration) {
-        currentAudioDuration = duration;
+    private void updateTitle(){
+        ListenContent listenContent = ListenContentController.getInstance().getCurrentListenContent();
+        String textDisplay = getString(R.string.listen_title_no_format);
+        if(listenContent.isHasQuestion()){
+            int currentListSize = DataController.getInstance().getCurrentListSize();
+            int currentFileIndex = DataController.getInstance().getCurrentFileIndex();
+            textDisplay = String.format(getString(R.string.listen_title_format),currentFileIndex+1, currentListSize);
+        }
+        questionHeaderTextView.setText(textDisplay);
+    }
+
+    public void onLoadAudioDone(int duration) {
         showCurrentPosition();
     }
 
@@ -120,15 +161,19 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
             }
         });
     }
-    public void onLoadError(String message) {
+    public void onLoadAudioError(String message) {
     }
 
-    public void onBuffer(int percent) {
+    public void onLoadAudioBuffering(int percent) {
         customSeekBar.setBufferPercent(percent);
     }
 
     public void onPrevious(View view){
-
+        if(DataController.getInstance().goPreviousItem()){
+            loadData();
+        }else{
+            showMessage(R.string.first_question_warning);
+        }
     }
 
     public void onPlay(View view){
@@ -140,7 +185,11 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     }
 
     public void onNext(View view){
-
+        if(DataController.getInstance().goNextItem()){
+            loadData();
+        }else{
+            showMessage(R.string.last_question_warning);
+        }
     }
 
     public void finish() {

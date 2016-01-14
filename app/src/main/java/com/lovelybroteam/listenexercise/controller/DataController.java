@@ -47,6 +47,24 @@ public class DataController implements AppConstant {
         }
     }
 
+    public boolean goPreviousItem(){
+        DataItem dataItem = currentShowDataFolder.getPreviousItem(currentShowDataItem);
+        if(dataItem != null){
+            currentShowDataItem = dataItem;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean goNextItem(){
+        DataItem dataItem = currentShowDataFolder.getNextItem(currentShowDataItem);
+        if(dataItem != null){
+            currentShowDataItem = dataItem;
+            return true;
+        }
+        return false;
+    }
+
     public DataItem getCurrentShowDataItem() {
         return currentShowDataItem;
     }
@@ -69,5 +87,12 @@ public class DataController implements AppConstant {
 
     public void setCurrentShowFolderPath(String currentShowFolderPath) {
         this.currentShowFolderPath = currentShowFolderPath;
+    }
+
+    public int getCurrentListSize(){
+        return currentShowDataFolder.getSize();
+    }
+    public int getCurrentFileIndex(){
+        return currentShowDataFolder.getDataItemIndex(currentShowDataItem);
     }
 }

@@ -51,4 +51,39 @@ public class DataItem {
         }
         return null;
     }
+
+    public int getSize(){
+        return children!=null? children.size():0;
+    }
+
+    public int getDataItemIndex(DataItem dataItem){
+        if(children!=null){
+            for(int i=0;i<children.size();i++){
+                if(children.get(i)==dataItem){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public DataItem getNextItem(DataItem dataItem){
+        int index = getDataItemIndex(dataItem);
+
+        if(children!=null && index< children.size()){
+            return children.get(index + 1);
+        }
+
+        return null;
+    }
+
+    public DataItem getPreviousItem(DataItem dataItem){
+        int index = getDataItemIndex(dataItem);
+
+        if(index>0){
+            return children.get(index-1);
+        }
+
+        return null;
+    }
 }

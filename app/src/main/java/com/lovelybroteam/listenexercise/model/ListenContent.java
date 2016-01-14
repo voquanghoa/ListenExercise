@@ -24,4 +24,8 @@ public class ListenContent {
     public void setScript(String script) {
         this.script = script;
     }
+
+    public boolean isHasQuestion(){
+        return this.questions != null && this.questions.size()>0;
+    }
 }

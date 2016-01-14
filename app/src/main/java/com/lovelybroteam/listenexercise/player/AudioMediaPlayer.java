@@ -36,11 +36,16 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
     }
 
     public int getDuration(){
-        return isReady ? mediaPlayer.getDuration() : 0;
+        try {
+            return isReady ? mediaPlayer.getDuration() : 0;
+        }catch (IllegalStateException exception){
+            Utils.Log(exception);
+            return 0;
+        }
     }
 
     public void onPrepared(MediaPlayer mp) {
-        audioMediaPlayerListener.onLoadDone(mp.getDuration());
+        audioMediaPlayerListener.onLoadAudioDone(mp.getDuration());
         if (!isRelease) {
             isReady = true;
             mp.start();
@@ -119,7 +124,7 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
 
     public boolean onError(MediaPlayer mp, int what, int extra) {
         if(what>0){
-            audioMediaPlayerListener.onLoadError("");
+            audioMediaPlayerListener.onLoadAudioError("");
             isError = true;
         }
 
@@ -127,10 +132,15 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
     }
 
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
-        audioMediaPlayerListener.onBuffer(percent);
+        audioMediaPlayerListener.onLoadAudioBuffering(percent);
     }
 
     public int getCurrentPosition(){
-        return mediaPlayer.getCurrentPosition();
+        try {
+            return mediaPlayer.getCurrentPosition();
+        }catch (IllegalStateException exception){
+            Utils.Log(exception);
+            return 0;
+        }
     }
 }
