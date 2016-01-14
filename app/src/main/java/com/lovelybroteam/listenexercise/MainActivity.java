@@ -49,7 +49,11 @@ public class MainActivity extends BaseActivity implements HttpDownloadController
 
     private void showList(){
         DataController.getInstance().setCurrentDataItem(currentSelectTag);
-        startActivity(new Intent(this, ListItemActivity.class));
+        if(DataController.getInstance().getCurrentDataItem() == null){
+            showMessage(R.string.function_is_not_available);
+        }else {
+            startActivity(new Intent(this, ListItemActivity.class));
+        }
     }
 
     public void onDownloadDone(String url, byte[] data) {
