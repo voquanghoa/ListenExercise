@@ -2,8 +2,6 @@ package com.lovelybroteam.listenexercise.util;
 
 import android.util.Log;
 
-import java.util.Random;
-
 /**
  * Created by Vo Quang Hoa on 20/09/2015.
  */
@@ -28,14 +26,9 @@ public class Utils {
     }
 
     private static int adsCheck = 0;
-    private static final int ADS_SHOW_RATIO = 5;
-    private static Random random;
+    private static final int ADS_SHOW_RATIO = 3;
     public static boolean checkAds(){
-        if(random == null){
-            random = new Random();
-        }
-        boolean isShow =  ++adsCheck > 0 && random.nextInt() % ADS_SHOW_RATIO ==0;
-        return isShow;
+        return (++adsCheck) % ADS_SHOW_RATIO == 0;
     }
 
     public static int limit(int value, int minimal, int maximum){

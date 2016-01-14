@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ScrollView;
 
+import com.google.android.gms.ads.AdListener;
 import com.lovelybroteam.listenexercise.api.IAudioMediaPlayerListener;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.control.BaseActivity;
@@ -35,9 +36,11 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     private ScrollView textContentScrollView;
     private PureListenControl pureListenControl;
     private ListenExerciseControl listenExerciseControl;
+    private boolean isNeedShowAds;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isNeedShowAds = Utils.checkAds();
         setContentView(R.layout.listen_activity_layout);
         initViewElements();
         loadData(DataController.getInstance().getCurrentShowFolderPath(), DataController.getInstance().getCurrentShowDataItem());
@@ -141,11 +144,27 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     }
 
     public void finish() {
-        if(audioMediaPlayer != null){
-            audioMediaPlayer.release();
-            audioMediaPlayer = null;
+        if (isNeedShowAds){
+            isNeedShowAds = false;
+            loadFullAds();
+            mInterstitialAd.setAdListener(new AdListener() {
+                public void onAdFailedToLoad(int errorCode) {
+                    ListenActivity.this.finish();
+                }
+                public void onAdLoaded() {
+                    mInterstitialAd.show();
+                }
+                public void onAdClosed(){
+                    ListenActivity.this.finish();
+                }
+            });
+        }else {
+            if (audioMediaPlayer != null) {
+                audioMediaPlayer.release();
+                audioMediaPlayer = null;
+            }
+            super.finish();
         }
-        super.finish();
     }
 
     public void onPause() {
