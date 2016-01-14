@@ -38,10 +38,12 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
         effectImageViewSubmit = (EffectImageView)findViewById(R.id.button_submit);
         effectImageViewSubmit.setOnClickListener(this);
         questionAnswerAdapter = new QuestionAnswerAdapter(getContext());
+        scriptTextView.setVisibility(GONE);
     }
 
     public void displayListenContent(ListenContent listenContent) {
         this.listenContent = listenContent;
+        scriptTextView.setVisibility(GONE);
         questionAnswerAdapter.setListenContent(listenContent);
         refreshView();
     }
@@ -67,6 +69,7 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
             ((Activity)getContext()).finish();
         }else{
             questionAnswerAdapter.setShowAnswer(true);
+            scriptTextView.setVisibility(VISIBLE);
             showResult();
         }
     }
