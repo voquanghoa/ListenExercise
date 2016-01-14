@@ -99,8 +99,8 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
 
     public void onDownloadDone(final String url, byte[] data) {
         super.onDownloadDone(url, data);
-        final String currentFileName = url.replace(AppConstant.SERVER_BASE_PATH,"").
-                replace(AppConstant.TEXT_FILE_EXTENSION,"");
+        final String currentFileName = url.replace(AppConstant.SERVER_BASE_PATH, "").
+                replace(AppConstant.TEXT_FILE_EXTENSION, "");
         try {
             final String content = new String(data, AppConstant.CHARSET);
             ListenContentController.getInstance().loadJson(content);
@@ -129,10 +129,12 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
 
     private void updateTitle(){
         ListenContent listenContent = ListenContentController.getInstance().getCurrentListenContent();
-        String textDisplay = getString(R.string.listen_title_no_format);
+        String textDisplay = "";
+        int currentListSize = DataController.getInstance().getCurrentListSize();
+        int currentFileIndex = DataController.getInstance().getCurrentFileIndex();
         if(listenContent.isHasQuestion()){
-            int currentListSize = DataController.getInstance().getCurrentListSize();
-            int currentFileIndex = DataController.getInstance().getCurrentFileIndex();
+            textDisplay = String.format(getString(R.string.listen_and_exercise_title_format),currentFileIndex+1, currentListSize);
+        }else{
             textDisplay = String.format(getString(R.string.listen_title_format),currentFileIndex+1, currentListSize);
         }
         questionHeaderTextView.setText(textDisplay);

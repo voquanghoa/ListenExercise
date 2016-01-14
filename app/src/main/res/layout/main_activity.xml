@@ -65,7 +65,7 @@
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
                 android:src="@drawable/main_menu_common_communication"
-                android:tag="Common communication"
+                android:tag="Common_communication"
                 android:onClick="onListenClick"
                 style="@style/MainMenuButton"
                 />

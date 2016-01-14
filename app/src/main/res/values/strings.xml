@@ -17,8 +17,8 @@
     <string name="admob_id_full_screen">ca-app-pub-8190508285797907/4573966279</string>
     <string name="first_question_warning">You are listening the first conversation!</string>
     <string name="last_question_warning">You are listening the last conversation!</string>
-    <string name="listen_title_format" formatted="false">Listen and choose the correct answer: %d/%d</string>
-    <string name="listen_title_no_format" formatted="false">Listen the conversation</string>
+    <string name="listen_and_exercise_title_format" formatted="false">Listen and choose the correct answer: %d/%d</string>
+    <string name="listen_title_format" formatted="false">Listen the conversation: %d/%d</string>
     <string name="function_is_not_available" formatted="false">Sorry, this feature is not available at this moments. Please check it back later.</string>
 
 </resources>
