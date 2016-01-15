@@ -1,0 +1,8 @@
+D:\Project\ListenExercise\tool\FixData\FileRenamePro\FileRenamePro\bin\Debug\FileRenamePro.exe
+D:\Project\ListenExercise\tool\FixData\FileRenamePro\FileRenamePro\bin\Debug\FileRenamePro.pdb
+D:\Project\ListenExercise\tool\FixData\FileRenamePro\FileRenamePro\obj\Debug\FileRenamePro.csprojResolveAssemblyReference.cache
+D:\Project\ListenExercise\tool\FixData\FileRenamePro\FileRenamePro\obj\Debug\FileRenamePro.Form1.resources
+D:\Project\ListenExercise\tool\FixData\FileRenamePro\FileRenamePro\obj\Debug\FileRenamePro.Properties.Resources.resources
+D:\Project\ListenExercise\tool\FixData\FileRenamePro\FileRenamePro\obj\Debug\FileRenamePro.csproj.GenerateResource.Cache
+D:\Project\ListenExercise\tool\FixData\FileRenamePro\FileRenamePro\obj\Debug\FileRenamePro.exe
+D:\Project\ListenExercise\tool\FixData\FileRenamePro\FileRenamePro\obj\Debug\FileRenamePro.pdb
