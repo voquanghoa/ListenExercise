@@ -163,6 +163,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
             }
         });
     }
+
     public void onLoadAudioError(String message) {
     }
 

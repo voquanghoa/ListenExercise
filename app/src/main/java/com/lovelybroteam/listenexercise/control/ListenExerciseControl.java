@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.lovelybroteam.listenexercise.R;
 import com.lovelybroteam.listenexercise.adapter.QuestionAnswerAdapter;
 import com.lovelybroteam.listenexercise.api.IListenControl;
+import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.controller.UserResultController;
 import com.lovelybroteam.listenexercise.model.ListenContent;
 
@@ -30,17 +31,20 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
     private ListenContent listenContent;
     private EffectImageView effectImageViewSubmit;
     private String currentFileName;
+    private InternetImageView internetImageView;
 
     public ListenExerciseControl(Context context) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.listen_exercise_child_layout, this, true);
         scriptTextView = (TextView) findViewById(R.id.test_content);
         questionListView = (LinearLayout)findViewById(R.id.question_list_view);
+        internetImageView = (InternetImageView)findViewById(R.id.picture_view);
         questionViews= new ArrayList<View>();
         effectImageViewSubmit = (EffectImageView)findViewById(R.id.button_submit);
         effectImageViewSubmit.setOnClickListener(this);
         questionAnswerAdapter = new QuestionAnswerAdapter(getContext());
         scriptTextView.setVisibility(GONE);
+        internetImageView.setVisibility(GONE);
     }
 
     public void displayListenContent(ListenContent listenContent, String filePath) {
@@ -55,6 +59,7 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
     public void refreshView() {
         scriptTextView.setText(listenContent.getScript());
         questionListView.removeAllViews();
+        internetImageView.setUrl(currentFileName+ AppConstant.PICTURE_FILE_EXTENSION);
 
         for(int i=0, j=questionAnswerAdapter.getCount();i<j;i++){
             View view = null;

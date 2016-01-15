@@ -1,31 +1,60 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace FixDataListen
 {
+	public delegate void ErrorFeedback(string fileName);
+	public delegate void ProgressFeedback(int percent);
+	public delegate void FinishFeedback();
+
 	public class FileConverter
 	{
-		public static string JoinString(string[] lines)
+		private string folder;
+        public FileConverter(string folderDir)
 		{
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < lines.Length; i++)
+			folder = folderDir;
+        }
+
+		public event ErrorFeedback OnError;
+		public event ProgressFeedback OnProgressFeedback;
+		public event FinishFeedback OnFinishFeedback;
+
+		public void ProcessFolder()
+		{
+			var files = Directory.EnumerateFiles(folder, "*.txt", SearchOption.AllDirectories).ToList();
+			
+			OnProgressFeedback(0);
+
+			int count = files.Count;
+
+			int lastPercent = 0;
+			int finishCount = 0;
+			int currentPercent;
+
+			foreach (string file in files)
 			{
-				if (i > 0)
+				var outputFile = file.Replace(".txt", ".json");
+				File.WriteAllText(outputFile, JsonConvert.SerializeObject(Convert(file)));
+				finishCount++;
+				currentPercent = 100 * finishCount / count;
+				if (currentPercent != lastPercent)
 				{
-					sb.Append("\n");
-				}
-				sb.Append(lines[i]);
-			}
-			return sb.ToString();
-		}
+					OnProgressFeedback(currentPercent);
+					lastPercent = currentPercent;
+                }
 
+            }
+			OnFinishFeedback();
+        }
 
-
-		public static ListenContent Convert(string fileContent)
+		public ListenContent Convert(string fileName)
 		{
-			string[] lines = fileContent.Split('\n')
+			string fileContent = File.ReadAllText(fileName);
+            string[] lines = fileContent.Split('\n')
 				.Select(y=>y.Replace("\r",""))
 				.Where(x => x.Trim().Length > 0).ToArray();
 			var result = new ListenContent()
@@ -39,7 +68,7 @@ namespace FixDataListen
 				if (lines[0].EndsWith(".mp3"))
 				{
 					lines = lines.Skip(1).ToArray();
-					fileContent = JoinString(lines);
+					fileContent = TextFormatter.JoinString(lines);
 				}
 
 				if (fileContent.Contains("Listening Comprehension Transcript"))
@@ -47,49 +76,39 @@ namespace FixDataListen
 					Question currentQuestion = null;
 					for (int i = 0; i < lines.Length; i++)
 					{
+						var currentLine = lines[i];
+
 						if (lines[i].Contains("Listening Comprehension Transcript"))
 						{
-							result.Script = JoinString(lines.Skip(i+1).ToArray());
+							result.Script = TextFormatter.JoinString(lines.Skip(i+1).ToArray());
 							break;
 						}
 						else
 						{
-							if (currentQuestion == null)
+							if (currentQuestion == null || TextFormatter.ShouldBeQuestion(currentLine))
 							{
 								currentQuestion = new Question();
-								currentQuestion.QuestionTitle = lines[i];
+								currentQuestion.QuestionTitle = TextFormatter.FormatQuestion(currentLine);
 								currentQuestion.Answer = new List<string>();
 								currentQuestion.CorrectAnswer = -1;
+								result.Questions.Add(currentQuestion);
 							}
 							else
 							{
-								if (lines[i].StartsWith(" "))
+								if (TextFormatter.isCorrectAnswer(currentLine))
 								{
 									currentQuestion.CorrectAnswer = currentQuestion.Answer.Count;
-									lines[i] = lines[i].Trim();
 								}
 
-								if (lines[i].Contains("-- CORRECT"))
-								{
-									currentQuestion.CorrectAnswer = currentQuestion.Answer.Count;
-									lines[i] = lines[i].Replace("-- CORRECT", "").Trim();
-								}
-
-								if (lines[i].Contains("--CORRECT"))
-								{
-									currentQuestion.CorrectAnswer = currentQuestion.Answer.Count;
-									lines[i] = lines[i].Replace("--CORRECT", "").Trim();
-								}
-
-								currentQuestion.Answer.Add(lines[i]);
+								currentQuestion.Answer.Add(TextFormatter.FormatAnswer(currentLine));
 
 								if (currentQuestion.Answer.Count == 4)
 								{
-									result.Questions.Add(currentQuestion);
 									if (currentQuestion.CorrectAnswer == -1)
 									{
 										Console.WriteLine("File error " + fileContent);
-									}
+										OnError(fileName);
+                                    }
 									currentQuestion = null;
                                 }
 							}

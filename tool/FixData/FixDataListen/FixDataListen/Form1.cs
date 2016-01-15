@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace FixDataListen
@@ -24,20 +25,66 @@ namespace FixDataListen
 			{
 				MessageBox.Show("Chưa nhập đường dẫn !");
 			}
+			FileConverter fileConverter = new FileConverter(textBox1.Text);
+			progressBar1.Visible = true;
 
-			ProcessFolder(textBox1.Text);
+			fileConverter.OnError += FileConverter_OnError;
+			fileConverter.OnFinishFeedback += FileConverter_OnFinishFeedback;
+			fileConverter.OnProgressFeedback += FileConverter_OnProgressFeedback;
+
+			new Thread(() => fileConverter.ProcessFolder()).Start();
         }
 
-		private void ProcessFolder(string folder)
+		private void FileConverter_OnProgressFeedback(int percent)
 		{
-			var files = Directory.EnumerateFiles(folder, "*.txt", SearchOption.AllDirectories);
-			foreach (string file in files)
+			if (InvokeRequired)
 			{
-				var outputFile = file.Replace(".txt", ".json");
-                var obj = FileConverter.Convert(File.ReadAllText(file));
-				File.WriteAllText(outputFile, JsonConvert.SerializeObject(obj));
+				Invoke(new Action(() =>
+				{
+					progressBar1.Value = percent;
+				}));
 			}
-			MessageBox.Show("DONE !!!");
+			else
+			{
+				progressBar1.Value = percent;
+			}
+		}
+
+		private void FileConverter_OnFinishFeedback()
+		{
+			if (InvokeRequired)
+			{
+				Invoke(new Action(() =>
+				{
+					MessageBox.Show("Done !!!");
+					progressBar1.Visible = false;
+				}));
+			}
+			else
+			{
+				MessageBox.Show("Done !!!");
+				progressBar1.Visible = false;
+			}
+		}
+
+		private void FileConverter_OnError(string fileName)
+		{
+			if (InvokeRequired)
+			{
+				Invoke(new Action(() =>
+				{
+					listBox1.Items.Add(fileName);
+				}));
+			}
+			else
+			{
+				listBox1.Items.Add(fileName);
+			}
+		}
+
+		private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			System.Diagnostics.Process.Start(listBox1.SelectedItem.ToString());
 		}
 	}
 }

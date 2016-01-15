@@ -10,4 +10,5 @@ public interface AppConstant {
     String USER_RESULT_FILE = "user_result.json";
     String TEXT_FILE_EXTENSION = ".json";
     String AUDIO_FILE_EXTENSION = ".mp3";
+    String PICTURE_FILE_EXTENSION = ".jpg";
 }
