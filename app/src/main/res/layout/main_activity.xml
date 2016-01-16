@@ -86,8 +86,8 @@
                 style="@style/MainMenuButton"
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
-                android:id="@+id/button_love_app"
                 android:src="@drawable/main_menu_love_this_app"
+                android:onClick="onLoveThisAppClick"
                 style="@style/MainMenuButton"
                 />
             <View

@@ -13,16 +13,19 @@
         style="@style/DialogLoveAppImageStyle"
         android:src="@drawable/dialog_love_app_description"
         />
-    <ImageView
+    <com.lovelybroteam.listenexercise.control.EffectImageView
         style="@style/DialogLoveAppImageStyle"
+        android:onClick="onShareFacebookClick"
         android:src="@drawable/love_app_share__facebook"
         />
-    <ImageView
+    <com.lovelybroteam.listenexercise.control.EffectImageView
         style="@style/DialogLoveAppImageStyle"
+        android:onClick="onShareGPlusClick"
         android:src="@drawable/love_app_share_gplus"
         />
-    <ImageView
+    <com.lovelybroteam.listenexercise.control.EffectImageView
         style="@style/DialogLoveAppImageStyle"
+        android:onClick="onRateClick"
         android:src="@drawable/love_app_rate"
         />
 </LinearLayout>
