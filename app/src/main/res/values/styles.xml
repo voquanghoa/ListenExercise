@@ -74,6 +74,12 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#fff</item>
     </style>
+    <style name="ImageViewStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">180dp</item>
+        <item name="android:layout_margin">3dp</item>
+    </style>
     <style name="SubmitButtonStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">2</item>

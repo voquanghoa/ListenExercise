@@ -17,7 +17,7 @@
         <com.lovelybroteam.listenexercise.control.InternetImageView
             android:id="@+id/picture_view"
             android:text="@string/submit"
-            style="@style/SubmitButtonStyle"
+            style="@style/ImageViewStyle"
             />
         <View
             android:layout_width="0dp"

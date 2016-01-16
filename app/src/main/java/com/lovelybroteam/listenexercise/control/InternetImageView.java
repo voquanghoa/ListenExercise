@@ -1,12 +1,14 @@
 package com.lovelybroteam.listenexercise.control;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewParent;
 import android.widget.ImageView;
 
 import com.lovelybroteam.listenexercise.controller.HttpDownloadController;
+import com.lovelybroteam.listenexercise.util.Utils;
 
 /**
  * Created by Vo Quang Hoa on 1/15/2016.
@@ -28,28 +30,31 @@ public class InternetImageView extends ImageView implements HttpDownloadControll
     }
 
     private void init(){
-        this.setVisibility(GONE);
+
     }
     public void setUrl(String url){
+        this.setVisibility(GONE);
         HttpDownloadController.getInstance().startDownload(url, this);
     }
 
-    public void onDownloadDone(String url, byte[] data) {
-        this.setVisibility(VISIBLE);
+    public void onDownloadDone(String url, final byte[] data) {
+        ((Activity)getContext()).runOnUiThread(new Runnable() {
+            public void run() {
+                InternetImageView.this.setVisibility(VISIBLE);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                InternetImageView.this.setImageBitmap(bitmap);
+            }
+        });
     }
 
     public void onDownloadFail(String message) {
-        this.setVisibility(GONE);
+        ((Activity)getContext()).runOnUiThread(new Runnable() {
+            public void run() {
+                InternetImageView.this.setVisibility(GONE);
+            }
+        });
+        Utils.Log(message);
     }
-
-    public void setVisibility(int visibility){
-        super.setVisibility(visibility);
-        ViewParent parent = this.getParent();
-        if(parent != null){
-            ((View) parent).setVisibility(GONE);
-        }
-    }
-
 
     public void onDownloadProgress(int done, int total) {
 
