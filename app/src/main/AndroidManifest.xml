@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true"
         android:name=".application.ListenExerciseApplication"
+        android:description="@string/app_description"
         >
         <activity android:name=".MainActivity">
             <intent-filter>

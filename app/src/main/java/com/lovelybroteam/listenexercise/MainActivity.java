@@ -1,19 +1,17 @@
 package com.lovelybroteam.listenexercise;
 
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.plus.PlusShare;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.control.BaseActivity;
 import com.lovelybroteam.listenexercise.controller.DataController;
 import com.lovelybroteam.listenexercise.controller.HttpDownloadController;
+import com.lovelybroteam.listenexercise.helper.SocialHelper;
 import com.lovelybroteam.listenexercise.util.Utils;
 
 import java.io.UnsupportedEncodingException;
@@ -21,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 public class MainActivity extends BaseActivity implements HttpDownloadController.IDownload {
     private String currentSelectTag;
     private AlertDialog  loveAppDialog;
+    private SocialHelper socialHelper;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
@@ -30,6 +29,7 @@ public class MainActivity extends BaseActivity implements HttpDownloadController
                 finish();
             }
         });
+        socialHelper = new SocialHelper(this);
     }
 
     public void onBackPressed() {
@@ -82,44 +82,14 @@ public class MainActivity extends BaseActivity implements HttpDownloadController
     }
 
     public void onRateClick(View view){
-        String packageName = getPackageName();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-
-        String marketLink = String.format(MARKET_URL_PATTERN, packageName);
-
-        intent.setData(Uri.parse(marketLink));
-        if (!SafeStartActivity(intent)) {
-            String marketWebLink = String.format(MARKET_WEB_URL_PATTERN, packageName);
-            intent.setData(Uri.parse(marketWebLink));
-            if (!SafeStartActivity(intent)) {
-                showMessage("Could not open Android market, please install the market app.");
-            }
-        }
+        socialHelper.rateApp();
     }
 
     public void onShareGPlusClick(View view){
-        String marketWebLink = String.format(MARKET_WEB_URL_PATTERN, getPackageName());
-        Intent shareIntent = new PlusShare.Builder(this)
-                .setType("text/plain")
-                .setText("Listen and exercise English for all level.")
-                .setContentUrl(Uri.parse(marketWebLink))
-                .getIntent();
-
-        SafeStartActivity(shareIntent);
+        socialHelper.shareGooglePlus();
     }
 
     public void onShareFacebookClick(View view){
-        String facebookShareLink = String.format(FACEBOOK_URL_PATTERN, getPackageName());
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookShareLink));
-        SafeStartActivity(intent);
-    }
-
-    private boolean SafeStartActivity(Intent aIntent) {
-        try{
-            startActivity(aIntent);
-            return true;
-        }catch (ActivityNotFoundException e){
-            return false;
-        }
+        socialHelper.shareFacebook();
     }
 }
