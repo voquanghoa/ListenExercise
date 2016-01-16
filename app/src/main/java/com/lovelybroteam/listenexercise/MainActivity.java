@@ -1,7 +1,9 @@
 package com.lovelybroteam.listenexercise;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.google.android.gms.ads.AdListener;
@@ -15,14 +17,19 @@ import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends BaseActivity implements HttpDownloadController.IDownload {
     private String currentSelectTag;
+    private AlertDialog  loveAppDialog;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         loadFullAds();
-
         mInterstitialAd.setAdListener(new AdListener() {
             public void onAdClosed() {
                 finish();
+            }
+        });
+        findViewById(R.id.button_love_app).setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                onLoveThisAppClick(v);
             }
         });
     }
@@ -36,6 +43,14 @@ public class MainActivity extends BaseActivity implements HttpDownloadController
         }
     }
 
+    public void onLoveThisAppClick(View view){
+        if(loveAppDialog==null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView (LayoutInflater.from(this).inflate(R.layout.love_app_dialog_layout, null));
+            loveAppDialog = builder.create();
+        }
+        loveAppDialog.show();
+    }
 
     public void onListenClick(View view){
         currentSelectTag = view.getTag().toString();

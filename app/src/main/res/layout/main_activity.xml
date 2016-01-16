@@ -86,9 +86,8 @@
                 style="@style/MainMenuButton"
                 />
             <com.lovelybroteam.listenexercise.control.EffectImageView
-                android:src="@drawable/main_menu_mananize_listen"
-                android:tag="Magazine_listen"
-                android:onClick="onListenClick"
+                android:id="@+id/button_love_app"
+                android:src="@drawable/main_menu_love_this_app"
                 style="@style/MainMenuButton"
                 />
             <View

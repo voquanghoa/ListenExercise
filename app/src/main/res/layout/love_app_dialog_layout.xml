@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#1bb269"
+    >
+    <ImageView
+        style="@style/DialogLoveAppImageStyle"
+        android:src="@drawable/dialog_love_app_title"
+        />
+    <ImageView
+        style="@style/DialogLoveAppImageStyle"
+        android:src="@drawable/dialog_love_app_description"
+        />
+    <ImageView
+        style="@style/DialogLoveAppImageStyle"
+        android:src="@drawable/love_app_share__facebook"
+        />
+    <ImageView
+        style="@style/DialogLoveAppImageStyle"
+        android:src="@drawable/love_app_share_gplus"
+        />
+    <ImageView
+        style="@style/DialogLoveAppImageStyle"
+        android:src="@drawable/love_app_rate"
+        />
+</LinearLayout>
