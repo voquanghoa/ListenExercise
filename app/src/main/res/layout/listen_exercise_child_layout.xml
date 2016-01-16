@@ -10,19 +10,11 @@
         android:orientation="horizontal"
         android:gravity="center"
         >
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
         <com.lovelybroteam.listenexercise.control.InternetImageView
             android:id="@+id/picture_view"
             android:text="@string/submit"
             style="@style/ImageViewStyle"
             />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
     </LinearLayout>
     <TextView
         android:id="@+id/test_content"
