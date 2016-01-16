@@ -229,9 +229,17 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
 
     public void onPause() {
         if(audioMediaPlayer!=null){
+            audioMediaPlayer.requestPause();
             audioMediaPlayer.pause();
         }
         super.onPause();
+    }
+
+    public void onResume() {
+        super.onResume();
+        if(audioMediaPlayer!=null){
+            audioMediaPlayer.requestResume();
+        }
     }
 
     private void showCurrentPosition(){

@@ -19,6 +19,7 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
     private boolean isRelease = false;
     private boolean isReady = false;
     private boolean isError = false;
+    private boolean isPauseRequested = false;
     private IAudioMediaPlayerListener audioMediaPlayerListener;
 
     public AudioMediaPlayer(IAudioMediaPlayerListener audioMediaPlayerListener){
@@ -48,7 +49,9 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
         audioMediaPlayerListener.onLoadAudioDone(mp.getDuration());
         if (!isRelease) {
             isReady = true;
-            mp.start();
+            if(!isPauseRequested) {
+                mp.start();
+            }
         }else{
             try {
                 if (mediaPlayer != null) {
@@ -62,6 +65,14 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
                 mediaPlayer = null;
             }
         }
+    }
+
+    public void requestPause(){
+        isPauseRequested = true;
+    }
+
+    public void requestResume(){
+        isPauseRequested = false;
     }
 
     public void pause(){
