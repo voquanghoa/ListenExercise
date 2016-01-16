@@ -144,7 +144,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         showCurrentPosition();
     }
 
-    public void onDownloadFail(String message){
+    public void onDownloadFail(HttpDownloadController.DownloadFailReason reason, String message) {
         closeLoadingDialog();
         this.runOnUiThread(new Runnable() {
             public void run() {
@@ -211,12 +211,20 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
                 }
             });
         }else {
-            if (audioMediaPlayer != null) {
-                audioMediaPlayer.release();
-                audioMediaPlayer = null;
-            }
             super.finish();
         }
+    }
+
+    public void onDestroy() {
+        if (audioMediaPlayer != null) {
+            final AudioMediaPlayer audioMediaPlayer = this.audioMediaPlayer;
+            new Thread(new Runnable() {
+                public void run() {
+                    audioMediaPlayer.release();
+                }
+            }).start();
+        }
+        super.onDestroy();
     }
 
     public void onPause() {

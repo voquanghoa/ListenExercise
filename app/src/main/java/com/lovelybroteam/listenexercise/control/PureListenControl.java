@@ -24,6 +24,7 @@ public class PureListenControl extends RelativeLayout implements IListenControl,
         scriptTextView = (TextView)findViewById(R.id.test_content);
         effectImageViewSubmit = (EffectImageView)findViewById(R.id.button_submit);
         effectImageViewSubmit.setOnClickListener(this);
+        effectImageViewSubmit.setActivated(true);
     }
 
     public void displayListenContent(ListenContent listenContent, String url){

@@ -4,17 +4,27 @@ import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.util.Utils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 /**
  * Created by Vo Quang Hoa on 12/21/2015.
  */
 public class HttpDownloadController implements AppConstant {
+    public enum  DownloadFailReason{
+        CANCELED,
+        NOT_FOUND,
+        NO_INTERNET,
+        INTERRUPT
+    }
+
     public interface IDownload{
         void onDownloadDone(String url, byte[] data);
-        void onDownloadFail(String message);
+        void onDownloadFail(DownloadFailReason reason, String message);
         void onDownloadProgress(int done, int total);
     }
 
@@ -58,11 +68,13 @@ public class HttpDownloadController implements AppConstant {
 
             if(isStopped){
                 isStopped = false;
-                downloadHandler.onDownloadFail("Download cancelled !");
+                downloadHandler.onDownloadFail(DownloadFailReason.CANCELED, "Download cancelled !");
                 return;
             }
 
-            if (httpConn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            int responseCode = httpConn.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 InputStream inputStream = httpConn.getInputStream();
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 int totalSize = httpConn.getContentLength();
@@ -76,7 +88,7 @@ public class HttpDownloadController implements AppConstant {
 
                     if(isStopped){
                         isStopped = false;
-                        downloadHandler.onDownloadFail("Download cancelled !");
+                        downloadHandler.onDownloadFail(DownloadFailReason.CANCELED, "Download cancelled !");
                         inputStream.close();
                         byteArrayOutputStream.close();
                         return;
@@ -87,14 +99,23 @@ public class HttpDownloadController implements AppConstant {
                 byteArrayOutputStream.close();
                 downloadHandler.onDownloadDone(downloadUrl, byteArrayOutputStream.toByteArray());
             }else{
-                downloadHandler.onDownloadFail("Download error. Can not download this file.");
-                Utils.Log(new Exception("Can not download file " + downloadUrl));
+                if(responseCode == HttpURLConnection.HTTP_NOT_FOUND){
+                    downloadHandler.onDownloadFail(DownloadFailReason.NOT_FOUND, "Download error. Can not download this file. Code"+responseCode);
+                    Utils.Log(new Exception("Can not download file " + downloadUrl));
+                }else {
+                    downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download this file. Code : "+responseCode);
+                    Utils.Log(new Exception("Can not download file " + downloadUrl));
+                }
             }
-        } catch (Exception e) {
-            downloadHandler.onDownloadFail(e.getMessage());
-            e.printStackTrace();
-        } finally {
-
+        } catch (MalformedURLException e) {
+            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download this file.");
+            Utils.Log(e);
+        } catch (ProtocolException e) {
+            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download this file.");
+            Utils.Log(e);
+        } catch (IOException e) {
+            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download this file.");
+            Utils.Log(e);
         }
     }
 }

@@ -47,7 +47,7 @@ public class InternetImageView extends ImageView implements HttpDownloadControll
         });
     }
 
-    public void onDownloadFail(String message) {
+    public void onDownloadFail(HttpDownloadController.DownloadFailReason reason, String message) {
         ((Activity)getContext()).runOnUiThread(new Runnable() {
             public void run() {
                 InternetImageView.this.setVisibility(GONE);

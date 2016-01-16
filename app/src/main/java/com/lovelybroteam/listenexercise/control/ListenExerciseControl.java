@@ -42,6 +42,7 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
         questionViews= new ArrayList<View>();
         effectImageViewSubmit = (EffectImageView)findViewById(R.id.button_submit);
         effectImageViewSubmit.setOnClickListener(this);
+        effectImageViewSubmit.setActivated(false);
         questionAnswerAdapter = new QuestionAnswerAdapter(getContext());
         scriptTextView.setVisibility(GONE);
         internetImageView.setVisibility(GONE);
@@ -53,6 +54,7 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
         currentFileName = filePath;
         questionAnswerAdapter.setShowAnswer(false);
         questionAnswerAdapter.setListenContent(listenContent);
+        effectImageViewSubmit.setActivated(false);
         refreshView();
     }
 
@@ -77,6 +79,7 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
         if(questionAnswerAdapter.isShowAnswer()){
             ((Activity)getContext()).finish();
         }else{
+            effectImageViewSubmit.setActivated(true);
             questionAnswerAdapter.setShowAnswer(true);
             scriptTextView.setVisibility(VISIBLE);
             showResult();
@@ -95,7 +98,6 @@ public class ListenExerciseControl extends RelativeLayout implements IListenCont
                             public void onClick(DialogInterface dialog, int id) {
                                 questionAnswerAdapter.setShowAnswer(true);
                                 refreshView();
-                                //effectImageViewSubmit.setText(R.string.finish);
                             }
                         });
         AlertDialog alertDialog = alertDialogBuilder.create();

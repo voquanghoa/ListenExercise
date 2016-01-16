@@ -84,7 +84,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">2</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@drawable/submit_button_background</item>
+        <item name="android:src">@drawable/button_finish_submit_background</item>
     </style>
     <style name="QuestionText">
         <item name="android:layout_width">match_parent</item>

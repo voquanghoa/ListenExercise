@@ -44,7 +44,7 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
         }
     }
 
-    public void onPrepared(MediaPlayer mp) {
+    public synchronized void onPrepared(MediaPlayer mp) {
         audioMediaPlayerListener.onLoadAudioDone(mp.getDuration());
         if (!isRelease) {
             isReady = true;
@@ -118,8 +118,12 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
         super.finalize();
     }
 
-    public boolean isPlaying(){
-        return mediaPlayer.isPlaying();
+    public synchronized boolean isPlaying(){
+        if(mediaPlayer != null && isReady){
+            return mediaPlayer.isPlaying();
+        }else {
+            return false;
+        }
     }
 
     public boolean onError(MediaPlayer mp, int what, int extra) {
@@ -137,6 +141,9 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
 
     public int getCurrentPosition(){
         try {
+            if(mediaPlayer == null || !isReady || isRelease){
+                return 0;
+            }
             return mediaPlayer.getCurrentPosition();
         }catch (IllegalStateException exception){
             Utils.Log(exception);

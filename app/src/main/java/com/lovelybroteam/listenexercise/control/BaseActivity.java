@@ -141,7 +141,7 @@ public class BaseActivity extends Activity implements DialogInterface.OnCancelLi
         closeLoadingDialog();
     }
 
-    public void onDownloadFail(String message) {
+    public void onDownloadFail(HttpDownloadController.DownloadFailReason reason, String message)  {
         closeLoadingDialog();
         showMessage(R.string.download_fail_message);
     }
