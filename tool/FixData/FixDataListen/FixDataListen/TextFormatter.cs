@@ -20,7 +20,7 @@ namespace FixDataListen
 
 		public static bool ShouldBeQuestion(string text)
 		{
-			return Regex.IsMatch(text, @"^(\d+)\)");
+			return Regex.IsMatch(text, @"^(\d+)[\)\.]");
 		}
 
 		public static bool isCorrectAnswer(string text)

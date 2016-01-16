@@ -160,9 +160,13 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
     }
 
     private void setQuestionText(Question question, TextView tvQuestion, int position) {
-        tvQuestion.setText(Html.fromHtml((1 + position) + ". " + question.getQuestionTitle()
-                .replace("<u>", "").replace("</u>", "")
-                .trim()));
+        String questionTitle = question.getQuestionTitle();
+
+        if(questionTitle.length() == 0 || !Character.isDigit(questionTitle.charAt(0))){
+            questionTitle = (1+position) +". " + questionTitle;
+        }
+
+        tvQuestion.setText(questionTitle);
     }
 
     private void setRadioButtonEnable(RadioButton[] radioButtons){
