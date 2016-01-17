@@ -57,12 +57,11 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
                 if (mediaPlayer != null) {
                     mediaPlayer.stop();
                     mediaPlayer.release();
-                    mediaPlayer = null;
                 }
             }catch (Exception ex){
                 Utils.Log(ex);
             }finally {
-                mediaPlayer = null;
+                //mediaPlayer = null;
             }
         }
     }
@@ -114,7 +113,6 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
             if (isReady && !isRelease && mediaPlayer != null) {
                 mediaPlayer.stop();
                 mediaPlayer.release();
-                mediaPlayer = null;
             }
         }catch (Exception ex){
             Utils.Log(ex);

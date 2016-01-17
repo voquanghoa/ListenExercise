@@ -26,6 +26,7 @@ import com.lovelybroteam.listenexercise.util.Utils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 /**
  * Created by Vo Quang Hoa on 12/28/2015.
@@ -40,10 +41,12 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     private boolean isNeedShowAds;
     private AppTitleControl appTitleControl;
     private TextView questionHeaderTextView;
+    private ArrayList<AudioMediaPlayer> audioMediaPlayerArrayList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isNeedShowAds = Utils.checkAds();
+        audioMediaPlayerArrayList = new ArrayList<>();
         setContentView(R.layout.listen_activity_layout);
         initViewElements();
         loadData();
@@ -92,7 +95,9 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         }catch (Exception ex){
             Utils.Log(ex);
         }finally {
-            audioMediaPlayer = null;
+            if(audioMediaPlayer!=null){
+                audioMediaPlayerArrayList.add(audioMediaPlayer);
+            }
             audioMediaPlayer = new AudioMediaPlayer(this);
         }
     }
