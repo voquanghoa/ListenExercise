@@ -1,39 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/RowItemStyle"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/file_data_item_select_layout"
-    >
+    style="@style/RowItemStyle"
+    android:layout_height="@dimen/list_file_height"
+    android:padding="0dp"
+    android:layout_marginTop="@dimen/file_item_margin_top_bottom"
+    android:background="@drawable/file_item_background_normal">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_file_padding"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_file_padding"
+        android:layout_alignParentTop="true"
+        android:background="@color/white" />
+
     <ImageView
         android:id="@+id/row_icon"
         android:layout_width="@dimen/list_icon_size"
         android:layout_height="@dimen/list_icon_size"
-        android:adjustViewBounds="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/test_english_icon"
-        />
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="@dimen/list_item_padding_left_right"
+        android:src="@drawable/test_english_icon" />
+
     <TextView
         android:id="@+id/button_main_menu"
+        style="@style/FolderItemText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:layout_centerVertical="true"
-        android:text="Button"
-        android:layout_toRightOf="@+id/row_icon"
         android:layout_toLeftOf="@+id/text_badge"
-        style="@style/FolderItemText"
-        />
+        android:layout_toRightOf="@+id/row_icon"
+        android:gravity="center"
+        android:text="Button" />
+
     <TextView
         android:id="@+id/text_badge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="8/10"
         android:layout_alignParentRight="true"
-        android:textColor="#fff"
+        android:layout_centerVertical="true"
         android:background="@drawable/green_badge"
+        android:padding="5dp"
+        android:text="8/10"
+        android:textColor="#fff"
         android:textSize="11sp"
         android:textStyle="bold"
-        android:padding="5dp"
+        android:layout_marginRight="@dimen/list_item_padding_left_right"
         />
 </RelativeLayout>
