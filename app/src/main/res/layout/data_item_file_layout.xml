@@ -8,18 +8,6 @@
     android:layout_marginTop="@dimen/file_item_margin_top_bottom"
     android:background="@drawable/file_item_background_normal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/list_file_padding"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/list_file_padding"
-        android:layout_alignParentTop="true"
-        android:background="@color/white" />
-
     <ImageView
         android:id="@+id/row_icon"
         android:layout_width="@dimen/list_icon_size"

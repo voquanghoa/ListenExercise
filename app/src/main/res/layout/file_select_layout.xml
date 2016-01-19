@@ -4,7 +4,7 @@
     android:id="@+id/liner_layout_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/listen_background"
+    android:background="@drawable/list_view_background"
     android:orientation="vertical" >
     <com.lovelybroteam.listenexercise.control.AppTitle
         android:id="@+id/app_title"
