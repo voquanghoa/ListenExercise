@@ -27,12 +27,13 @@ public class ListItemActivity extends BaseActivity implements FileSelectAdapter.
         ((ListView)findViewById(R.id.list_item)).setAdapter(adapter);
     }
 
-    public void updateTitle(boolean isFile){
-        if(isFile){
+    public void updateTitle(DataItem dataItem){
+        if(dataItem.getChildren().get(0).isFileTest()){
             descriptionTextView.setText(R.string.list_description_1);
         }else{
             descriptionTextView.setText(R.string.list_description_2);
         }
+        appTitleControl.setTitle(dataItem.getDisplay());
     }
 
     public void onBackPressed() {

@@ -25,6 +25,7 @@ public class BaseActivity extends Activity implements DialogInterface.OnCancelLi
     private AdView adView;
     private static AdRequest adRequest;
     protected InterstitialAd mInterstitialAd;
+    protected AppTitleControl appTitleControl;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class BaseActivity extends Activity implements DialogInterface.OnCancelLi
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         loadBannerAds();
+        appTitleControl = (AppTitleControl)findViewById(R.id.app_title_control);
     }
 
     protected void loadBannerAds(){

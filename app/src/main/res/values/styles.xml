@@ -100,10 +100,18 @@
         <item name="android:textSize">19sp</item>
     </style>
     <style name="AppTitleText">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/app_title_text</item>
-        <item name="android:textSize">@dimen/app_title_font_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginRight">@dimen/app_title_text_padding</item>
+        <item name="android:layout_marginLeft">@dimen/app_title_text_padding</item>
     </style>
     <style name="DialogLoveAppImageStyle" >
         <item name="android:layout_width">match_parent</item>

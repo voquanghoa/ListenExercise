@@ -49,7 +49,7 @@ public class FileSelectAdapter extends BaseAdapter {
         }
         this.notifyDataSetChanged();
         if(selectFeedback!=null){
-            selectFeedback.updateTitle(dataItem.getChildren().get(0).isFileTest());
+            selectFeedback.updateTitle(dataItem);
         }
     }
 
@@ -148,6 +148,6 @@ public class FileSelectAdapter extends BaseAdapter {
 
     public interface FileSelectFeedback {
         void openFile(String folderPath, DataItem folder, DataItem file);
-        void updateTitle(boolean isFile);
+        void updateTitle(DataItem dataItem);
     }
 }

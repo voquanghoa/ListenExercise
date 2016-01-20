@@ -10,8 +10,9 @@
     <dimen name="media_control_height_padding">5dp</dimen>
     <dimen name="media_control_button_margin">10dp</dimen>
     <dimen name="media_control_button_margin_base">5dp</dimen>
-    <dimen name="app_title_height">40dp</dimen>
+    <dimen name="app_title_height">45dp</dimen>
     <dimen name="app_title_padding">5dp</dimen>
+    <dimen name="app_title_text_padding">5dp</dimen>
 
     <dimen name="text_title_size">20sp</dimen>
     <dimen name="text_title_padding">2dp</dimen>

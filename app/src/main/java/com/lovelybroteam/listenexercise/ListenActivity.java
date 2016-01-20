@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.lovelybroteam.listenexercise.api.IAudioMediaPlayerListener;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
-import com.lovelybroteam.listenexercise.control.AppTitleControl;
 import com.lovelybroteam.listenexercise.control.BaseActivity;
 import com.lovelybroteam.listenexercise.control.CustomMediaControl;
 import com.lovelybroteam.listenexercise.control.CustomSeekBar;
@@ -39,7 +38,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     private PureListenControl pureListenControl;
     private ListenExerciseControl listenExerciseControl;
     private boolean isNeedShowAds;
-    private AppTitleControl appTitleControl;
+
     private TextView questionHeaderTextView;
     private ArrayList<AudioMediaPlayer> audioMediaPlayerArrayList;
 
@@ -54,7 +53,6 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
 
     protected void initViewElements(){
         questionHeaderTextView = (TextView)findViewById(R.id.text_question_title);
-        appTitleControl = (AppTitleControl)findViewById(R.id.app_title_control);
         textContentScrollView = (ScrollView)findViewById(R.id.text_scroll_view);
         customMediaControl = (CustomMediaControl)findViewById(R.id.custom_media_control);
         customSeekBar =(CustomSeekBar) findViewById(R.id.media_seekbar);

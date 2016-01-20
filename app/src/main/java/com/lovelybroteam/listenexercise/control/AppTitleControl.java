@@ -37,7 +37,7 @@ public class AppTitleControl extends RelativeLayout {
         appTitleBackButton = (EffectImageView)findViewById(R.id.app_title_back);
         appTitleBackButton.setOnClickListener(new OnClickListener(){
             public void onClick(View v) {
-                ((Activity)getContext()).finish();
+                ((Activity)getContext()).onBackPressed();
             }
         });
     }
