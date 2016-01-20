@@ -6,7 +6,7 @@
     android:layout_height="@dimen/list_file_height"
     android:padding="0dp"
     android:layout_marginTop="@dimen/file_item_margin_top_bottom"
-    android:background="@drawable/file_item_background_normal">
+    android:background="@drawable/file_item_background">
 
     <ImageView
         android:id="@+id/row_icon"
