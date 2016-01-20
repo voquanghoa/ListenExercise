@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/topLayout"
+        android:padding="@dimen/common_app_padding"
         android:layout_above="@+id/adView"
         >
 

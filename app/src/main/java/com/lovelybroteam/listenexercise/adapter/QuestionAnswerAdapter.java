@@ -1,6 +1,7 @@
 package com.lovelybroteam.listenexercise.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,14 +145,24 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
         for(int i=0;i<radioButtons.length;i++){
             RadioButton radioButton = radioButtons[i];
             List<String> answers = question.getAnwers();
+            String colorCode = "white";
+            String textDisplay = answers.get(i);
+            radioButton.setPaintFlags(radioButton.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             if(answers.size() > i){
                 if(showAnswer){
-                    radioButton.setText(Html.fromHtml(QuestionHelper.convertToColor(answers.get(i),
-                            i==question.getCorrectAnswer() ? "blue" : "black")));
-                }else {
-                    radioButton.setText(Html.fromHtml(answers.get(i)));
+                    if(i==question.getCorrectAnswer()){
+                        colorCode = "green";
+                    }else{
+                        if(radioButton.isChecked()){
+                            colorCode = "red";
+                            radioButton.setPaintFlags(radioButton.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        }else{
+                            colorCode = "black";
+                        }
+                    }
                 }
-
+                textDisplay = QuestionHelper.convertToColor(textDisplay, colorCode);
+                radioButton.setText(Html.fromHtml(textDisplay));
                 radioButton.setVisibility(View.VISIBLE);
             }else{
                 radioButton.setVisibility(View.GONE);

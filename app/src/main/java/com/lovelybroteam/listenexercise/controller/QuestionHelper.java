@@ -13,6 +13,10 @@ public class QuestionHelper {
         return result;
     }
 
+    public  static String strikeText(String originalString){
+        return String.format("<strike>%s</strike>", originalString);
+    }
+
     private static String getQuestionString(ArrayList<String> lineGroup, int lineIndex){
         String removeRegex = "^(\\d+)(\\.|\\)) ";
 

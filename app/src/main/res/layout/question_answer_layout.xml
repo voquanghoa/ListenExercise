@@ -11,7 +11,7 @@
         android:layout_marginLeft="8pt"
         android:layout_marginBottom="@dimen/question_margin_bottom"
         android:layout_marginTop="@dimen/question_margin_top"
-        android:textColor="#000"
+        android:textColor="#ff0"
         style="@style/QuestionText"
         />
     <RadioGroup

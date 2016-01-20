@@ -44,5 +44,7 @@
     <dimen name="app_title_font_size">20sp</dimen>
     <dimen name="app_title_icon_space">20dp</dimen>
     <dimen name="app_title_text_space">10dp</dimen>
+    <dimen name="common_app_padding">5dp</dimen>
 
+    <dimen name="listen_text_size">17sp</dimen>
 </resources>

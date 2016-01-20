@@ -80,6 +80,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#fff</item>
+        <item name="android:textSize">@dimen/listen_text_size</item>
     </style>
     <style name="ImageViewStyle">
         <item name="android:layout_width">0dp</item>
@@ -97,7 +98,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">left|center_vertical</item>
-        <item name="android:textSize">19sp</item>
+        <item name="android:textSize">@dimen/listen_text_size</item>
     </style>
     <style name="AppTitleText">
         <item name="android:layout_width">match_parent</item>
