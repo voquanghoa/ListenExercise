@@ -142,12 +142,14 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
     }
 
     private void setAnswerText(RadioButton[] radioButtons,Question question){
-        for(int i=0;i<radioButtons.length;i++){
+        List<String> answers = question.getAnwers();
+        for(int i=0;i<radioButtons.length && i<answers.size();i++){
             RadioButton radioButton = radioButtons[i];
-            List<String> answers = question.getAnwers();
-            String colorCode = "white";
             String textDisplay = answers.get(i);
+
+            String colorCode = "white";
             radioButton.setPaintFlags(radioButton.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+
             if(answers.size() > i){
                 if(showAnswer){
                     if(i==question.getCorrectAnswer()){
