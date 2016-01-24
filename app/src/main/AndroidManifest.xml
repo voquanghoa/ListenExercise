@@ -10,19 +10,22 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
+
         android:hardwareAccelerated="true"
         android:name=".application.ListenExerciseApplication"
         android:description="@string/app_description"
         >
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListenActivity" />
-        <activity android:name=".ListItemActivity" />
+        <activity android:name=".ListenActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ListItemActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
