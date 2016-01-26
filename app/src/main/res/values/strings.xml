@@ -6,6 +6,7 @@
     <string name="finish">Finish</string>
     <string name="ok">Ok</string>
     <string name="download_fail">Download fail</string>
+    <string name="dialog_title">Dialog info</string>
 
     <string name="download_message">Getting data from server. Please wait....</string>
     <string name="download_cancel_message">Downloading has been stopped.</string>

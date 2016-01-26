@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/conversion_dialog"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/common_app_padding"
+    android:background="@drawable/dialog_background">
+    <TextView
+        style="@style/ConversationDialogTextTitle"
+        android:text="@string/dialog_title" />
+
+    <TextView
+        android:id="@+id/test_content"
+        style="@style/ConversationText"
+        />
+</LinearLayout>

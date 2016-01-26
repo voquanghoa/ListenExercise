@@ -82,6 +82,15 @@
         <item name="android:textColor">#fff</item>
         <item name="android:textSize">@dimen/listen_text_size</item>
     </style>
+    <style name="ConversationDialogTextTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/dialog_text_title</item>
+        <item name="android:textSize">@dimen/conversation_title_text_size</item>
+        <item name="android:layout_margin">@dimen/common_app_padding</item>
+    </style>
     <style name="ImageViewStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">2</item>
