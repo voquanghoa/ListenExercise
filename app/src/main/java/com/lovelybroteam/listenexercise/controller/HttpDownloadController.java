@@ -108,13 +108,13 @@ public class HttpDownloadController implements AppConstant {
                 }
             }
         } catch (MalformedURLException e) {
-            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download this file.");
+            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download the data.");
             Utils.Log(e);
         } catch (ProtocolException e) {
-            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download this file.");
+            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download the data.");
             Utils.Log(e);
         } catch (IOException e) {
-            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download this file.");
+            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download the data.");
             Utils.Log(e);
         }
     }

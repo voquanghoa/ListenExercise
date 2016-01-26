@@ -16,8 +16,8 @@ import com.lovelybroteam.listenexercise.constant.AppConstant;
  */
 public class SocialHelper implements AppConstant{
     private final static String MARKET_URL_PATTERN = "market://details?id=%s";
-    private final static String MARKET_WEB_URL_PATTERN = "https://play.google.com/store/apps/details?%s";
-    private final static String FACEBOOK_URL_PATTERN = "https://www.facebook.com/sharer/sharer.php?u=%s";
+    private final static String MARKET_WEB_URL_PATTERN = "https://play.google.com/store/apps/details?id=%s";
+    private final static String FACEBOOK_URL_PATTERN = "https://www.facebook.com/sharer/sharer.php?u="+MARKET_WEB_URL_PATTERN;
     private final static String SHARE_CONTENT_TYPE = "text/plain";
 
     private String packageName;

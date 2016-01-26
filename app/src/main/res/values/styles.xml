@@ -109,6 +109,7 @@
         <item name="android:layout_gravity">left|center_vertical</item>
         <item name="android:textSize">@dimen/listen_text_size</item>
         <item name="android:button">@drawable/radio_question_normal</item>
+        <item name="android:textColor">@color/white</item>
     </style>
     <style name="AppTitleText">
         <item name="android:layout_width">match_parent</item>

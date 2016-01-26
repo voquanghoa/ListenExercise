@@ -186,6 +186,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         try {
             audioMediaPlayer.togglePlay();
         } catch (Exception e) {
+            showMessage(e.getMessage());
             Utils.Log(e);
         }
     }

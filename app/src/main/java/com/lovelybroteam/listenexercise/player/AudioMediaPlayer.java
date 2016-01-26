@@ -84,7 +84,10 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
 
     public void togglePlay() throws Exception {
         if(isError){
-            throw new Exception("Can not play the file");
+            throw new Exception("Can not play the audio file.");
+        }
+        if (!isReady){
+            throw new Exception("Buffering. Please wait...");
         }
         if(isReady && !isRelease){
             if(mediaPlayer.isPlaying()) {

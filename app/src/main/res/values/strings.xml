@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Listen Exercise</string>
-    <string name="listen_title">TITLE</string>
-
     <string name="submit">Submit</string>
     <string name="finish">Finish</string>
     <string name="ok">Ok</string>
@@ -21,7 +19,7 @@
     <string name="listen_and_exercise_title_format" formatted="false">Listen and choose the correct answer: %d/%d</string>
     <string name="listen_title_format" formatted="false">Listen the conversation: %d/%d</string>
     <string name="function_is_not_available" formatted="false">Sorry, this feature is not available at this moments. Please check it back later.</string>
-    <string name="app_description">Listen and exercise English for all levels!</string>
+    <string name="app_description">Listen exercise. The application with more than 2000 exercises about English Listening!</string>
     <string name="list_description_1">Select the exercise you want to test: </string>
     <string name="list_description_2">Select a category </string>
 </resources>
