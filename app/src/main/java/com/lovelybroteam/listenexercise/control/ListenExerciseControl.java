@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.lovelybroteam.listenexercise.R;
 import com.lovelybroteam.listenexercise.adapter.QuestionAnswerAdapter;
@@ -54,6 +55,7 @@ public class ListenExerciseControl extends ListenControl{
 
     public void refreshView() {
         displayScriptText(listenContent.getScript());
+        ((ScrollView)this.getParent()).scrollTo(0, 0);
         questionListView.removeAllViews();
         internetImageView.setUrl(currentFileName+ AppConstant.PICTURE_FILE_EXTENSION);
 

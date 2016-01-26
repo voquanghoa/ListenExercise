@@ -16,6 +16,6 @@
     <color name="list_view_item_text_color">#edfb08</color>
 
     <color name="list_view_file_background_color">#6567e6c4</color>
-
-
+    <color name="radio_button_color">#60cf20</color>
+    <color name="radio_button_pressed_color">#00ff00</color>
 </resources>

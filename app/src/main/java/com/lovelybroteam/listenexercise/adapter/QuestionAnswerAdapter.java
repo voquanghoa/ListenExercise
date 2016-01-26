@@ -1,8 +1,13 @@
 package com.lovelybroteam.listenexercise.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.text.Html;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +21,7 @@ import com.lovelybroteam.listenexercise.R;
 import com.lovelybroteam.listenexercise.controller.QuestionHelper;
 import com.lovelybroteam.listenexercise.model.ListenContent;
 import com.lovelybroteam.listenexercise.model.Question;
+import com.lovelybroteam.listenexercise.util.GraphicUtil;
 
 import java.util.List;
 
@@ -27,6 +33,9 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
     private ListenContent listenContent;
     private boolean showAnswer = false;
     private int[] userSelection;
+    private Drawable correctDrawable;
+    private Drawable incorrectDrawable;
+    private Drawable unselectedDrawable;
     private int[] radioButtonId = new int[]{
             R.id.answer_a,
             R.id.answer_b,
@@ -36,6 +45,13 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
 
     public QuestionAnswerAdapter(Context context) {
         this.context = context;
+        Resources resources = context.getResources();
+        int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                resources.getDimension(R.dimen.radio_button_result_size),
+                resources.getDisplayMetrics());
+        correctDrawable = resize(GraphicUtil.getDrawable(resources, R.drawable.radio_button_correct), px);
+        incorrectDrawable = resize(GraphicUtil.getDrawable(resources, R.drawable.radio_button_incorrect), px);
+        unselectedDrawable = resize(GraphicUtil.getDrawable(resources, R.drawable.radio_button_not_select), px);
     }
 
     public void setListenContent(ListenContent listenContent){
@@ -147,19 +163,24 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
             RadioButton radioButton = radioButtons[i];
             radioButton.setPaintFlags(radioButton.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             if(answers.size() > i){
-                String textDisplay = answers.get(i);
+                String textDisplay = "&nbsp;" +answers.get(i);
                 String colorCode = "white";
                 if(showAnswer){
                     if(i==question.getCorrectAnswer()){
                         colorCode = "yellow";
+                        radioButton.setButtonDrawable(correctDrawable);
                     }else{
                         if(radioButton.isChecked()){
                             colorCode = "red";
                             radioButton.setPaintFlags(radioButton.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                            radioButton.setButtonDrawable(incorrectDrawable);
                         }else{
                             colorCode = "black";
+                            radioButton.setButtonDrawable(unselectedDrawable);
                         }
                     }
+                }else{
+                    radioButton.setButtonDrawable(R.drawable.radio_question_normal);
                 }
                 textDisplay = QuestionHelper.convertToColor(textDisplay, colorCode);
                 radioButton.setText(Html.fromHtml(textDisplay));
@@ -197,5 +218,11 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
                 }
             }
         }
+    }
+
+    private Drawable resize(Drawable image, int dpSize) {
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, dpSize, dpSize, false);
+        return new BitmapDrawable(context.getResources(), bitmapResized);
     }
 }
