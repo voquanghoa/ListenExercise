@@ -1,8 +1,7 @@
 package com.lovelybroteam.listenexercise.control;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -12,6 +11,7 @@ import com.lovelybroteam.listenexercise.adapter.QuestionAnswerAdapter;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.controller.UserResultController;
 import com.lovelybroteam.listenexercise.model.ListenContent;
+import com.lovelybroteam.listenexercise.util.ActivityHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,18 +85,14 @@ public class ListenExerciseControl extends ListenControl{
     }
 
     public void showResult(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-        alertDialogBuilder
-                .setTitle(R.string.dialog_result_title)
-                .setMessage(questionAnswerAdapter.getResultAsString())
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                questionAnswerAdapter.setShowAnswer(true);
-                                refreshView();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+        Activity activity = (Activity)getContext();
+        ActivityHelper.showModalDialog(activity, activity.getString(R.string.dialog_result_title), questionAnswerAdapter.getResultAsString(),
+                new Runnable() {
+                    public void run() {
+                        questionAnswerAdapter.setShowAnswer(true);
+                        refreshView();
+                    }
+                }
+        );
     }
 }

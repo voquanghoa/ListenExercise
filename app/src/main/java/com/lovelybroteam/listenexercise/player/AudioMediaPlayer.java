@@ -15,6 +15,9 @@ import java.io.IOException;
 public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener,
         MediaPlayer.OnBufferingUpdateListener{
 
+    public class BufferingNotFinishedException extends Exception{}
+    public class CouldNotLoadAudioException extends Exception{}
+
     private MediaPlayer mediaPlayer;
     private boolean isRelease = false;
     private boolean isReady = false;
@@ -82,12 +85,12 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
         }
     }
 
-    public void togglePlay() throws Exception {
+    public void togglePlay() throws CouldNotLoadAudioException, BufferingNotFinishedException {
         if(isError){
-            throw new Exception("Can not play the audio file.");
+            throw new CouldNotLoadAudioException();
         }
         if (!isReady){
-            throw new Exception("Buffering. Please wait...");
+            throw new BufferingNotFinishedException();
         }
         if(isReady && !isRelease){
             if(mediaPlayer.isPlaying()) {
@@ -140,7 +143,7 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
 
     public boolean onError(MediaPlayer mp, int what, int extra) {
         if(what>0){
-            audioMediaPlayerListener.onLoadAudioError("");
+            audioMediaPlayerListener.onLoadAudioError();
             isError = true;
         }
 
@@ -158,7 +161,6 @@ public class AudioMediaPlayer implements MediaPlayer.OnPreparedListener, MediaPl
             }
             return mediaPlayer.getCurrentPosition();
         }catch (IllegalStateException exception){
-            Utils.Log(exception);
             return 0;
         }
     }

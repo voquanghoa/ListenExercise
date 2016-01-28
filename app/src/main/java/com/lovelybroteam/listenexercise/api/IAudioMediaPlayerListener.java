@@ -5,6 +5,6 @@ package com.lovelybroteam.listenexercise.api;
  */
 public interface IAudioMediaPlayerListener {
     void onLoadAudioDone(int duration);
-    void onLoadAudioError(String message);
+    void onLoadAudioError();
     void onLoadAudioBuffering(int percent);
 }

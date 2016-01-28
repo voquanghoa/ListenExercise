@@ -1,8 +1,6 @@
 package com.lovelybroteam.listenexercise;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -21,6 +19,7 @@ import com.lovelybroteam.listenexercise.controller.ListenContentController;
 import com.lovelybroteam.listenexercise.model.DataItem;
 import com.lovelybroteam.listenexercise.model.ListenContent;
 import com.lovelybroteam.listenexercise.player.AudioMediaPlayer;
+import com.lovelybroteam.listenexercise.util.ActivityHelper;
 import com.lovelybroteam.listenexercise.util.Utils;
 
 import java.io.IOException;
@@ -132,42 +131,30 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
 
     private void updateTitle(){
         ListenContent listenContent = ListenContentController.getInstance().getCurrentListenContent();
-        String textDisplay = "";
         int currentListSize = DataController.getInstance().getCurrentListSize();
         int currentFileIndex = DataController.getInstance().getCurrentFileIndex();
         if(listenContent.isHasQuestion()){
-            textDisplay = String.format(getString(R.string.listen_and_exercise_title_format),currentFileIndex+1, currentListSize);
+            questionHeaderTextView.setText(String.format(getString(R.string.listen_and_exercise_title_format), currentFileIndex + 1, currentListSize));
         }else{
-            textDisplay = String.format(getString(R.string.listen_title_format),currentFileIndex+1, currentListSize);
+            questionHeaderTextView.setText(String.format(getString(R.string.listen_title_format),currentFileIndex+1, currentListSize));
         }
-        questionHeaderTextView.setText(textDisplay);
     }
 
     public void onLoadAudioDone(int duration) {
         showCurrentPosition();
     }
 
-    public void onDownloadFail(HttpDownloadController.DownloadFailReason reason, String message) {
+    public void onDownloadFail(HttpDownloadController.DownloadFailReason reason, int codeMessage) {
         closeLoadingDialog();
-        this.runOnUiThread(new Runnable() {
+        ActivityHelper.showModalDialog(ListenActivity.this, R.string.download_fail, R.string.download_fail_exit, new Runnable() {
             public void run() {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ListenActivity.this);
-                alertDialogBuilder
-                        .setTitle(R.string.download_fail)
-                        .setMessage(R.string.download_fail_exit)
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                ListenActivity.this.finish();
-                            }
-                        });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                ListenActivity.this.finish();
             }
         });
     }
 
-    public void onLoadAudioError(String message) {
+    public void onLoadAudioError() {
+        showMessage(R.string.audio_loaded_error);
     }
 
     public void onLoadAudioBuffering(int percent) {
@@ -185,8 +172,11 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     public void onPlay(View view){
         try {
             audioMediaPlayer.togglePlay();
-        } catch (Exception e) {
-            showMessage(e.getMessage());
+        } catch (AudioMediaPlayer.CouldNotLoadAudioException e) {
+            showMessage(R.string.audio_loaded_error);
+            Utils.Log(e);
+        } catch (AudioMediaPlayer.BufferingNotFinishedException e) {
+            showMessage(R.string.audio_loading_warning);
             Utils.Log(e);
         }
     }

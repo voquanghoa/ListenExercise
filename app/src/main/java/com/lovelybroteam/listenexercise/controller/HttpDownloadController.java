@@ -24,7 +24,7 @@ public class HttpDownloadController implements AppConstant {
 
     public interface IDownload{
         void onDownloadDone(String url, byte[] data);
-        void onDownloadFail(DownloadFailReason reason, String message);
+        void onDownloadFail(DownloadFailReason reason, int codeMessage);
         void onDownloadProgress(int done, int total);
     }
 
@@ -68,7 +68,7 @@ public class HttpDownloadController implements AppConstant {
 
             if(isStopped){
                 isStopped = false;
-                downloadHandler.onDownloadFail(DownloadFailReason.CANCELED, "Download cancelled !");
+                downloadHandler.onDownloadFail(DownloadFailReason.CANCELED, 0);
                 return;
             }
 
@@ -88,7 +88,7 @@ public class HttpDownloadController implements AppConstant {
 
                     if(isStopped){
                         isStopped = false;
-                        downloadHandler.onDownloadFail(DownloadFailReason.CANCELED, "Download cancelled !");
+                        downloadHandler.onDownloadFail(DownloadFailReason.CANCELED, 0);
                         inputStream.close();
                         byteArrayOutputStream.close();
                         return;
@@ -100,21 +100,18 @@ public class HttpDownloadController implements AppConstant {
                 downloadHandler.onDownloadDone(downloadUrl, byteArrayOutputStream.toByteArray());
             }else{
                 if(responseCode == HttpURLConnection.HTTP_NOT_FOUND){
-                    downloadHandler.onDownloadFail(DownloadFailReason.NOT_FOUND, "Download error. Can not download this file. Code"+responseCode);
+                    downloadHandler.onDownloadFail(DownloadFailReason.NOT_FOUND, responseCode);
                     Utils.Log(new Exception("Can not download file " + downloadUrl));
                 }else {
-                    downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download this file. Code : "+responseCode);
+                    downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, responseCode);
                     Utils.Log(new Exception("Can not download file " + downloadUrl));
                 }
             }
-        } catch (MalformedURLException e) {
-            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download the data.");
-            Utils.Log(e);
-        } catch (ProtocolException e) {
-            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download the data.");
+        } catch (MalformedURLException|ProtocolException e) {
+            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, 0);
             Utils.Log(e);
         } catch (IOException e) {
-            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, "Download error. Can not download the data.");
+            downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, 0);
             Utils.Log(e);
         }
     }

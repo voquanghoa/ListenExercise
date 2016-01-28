@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import com.lovelybroteam.listenexercise.controller.HttpDownloadController;
-import com.lovelybroteam.listenexercise.util.Utils;
 
 /**
  * Created by Vo Quang Hoa on 1/15/2016.
@@ -47,13 +46,12 @@ public class InternetImageView extends ImageView implements HttpDownloadControll
         });
     }
 
-    public void onDownloadFail(HttpDownloadController.DownloadFailReason reason, String message) {
+    public void onDownloadFail(HttpDownloadController.DownloadFailReason reason, int reasonCode) {
         ((Activity)getContext()).runOnUiThread(new Runnable() {
             public void run() {
                 InternetImageView.this.setVisibility(GONE);
             }
         });
-        Utils.Log(message);
     }
 
     public void onDownloadProgress(int done, int total) {

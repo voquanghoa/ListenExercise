@@ -165,7 +165,7 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
             if(answers.size() > i){
                 if(showAnswer){
                     String textDisplay = "&nbsp;" +answers.get(i);
-                    String colorCode = "#fff";
+                    String colorCode = "white";
                     if(i==question.getCorrectAnswer()){
                         colorCode = "yellow";
                         radioButton.setButtonDrawable(correctDrawable);
