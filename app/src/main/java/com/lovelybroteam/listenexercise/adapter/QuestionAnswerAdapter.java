@@ -163,8 +163,9 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
             RadioButton radioButton = radioButtons[i];
             radioButton.setPaintFlags(radioButton.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             if(answers.size() > i){
+                String answerText = answers.get(i).replaceAll("^\\([ABCD]\\)","");
                 if(showAnswer){
-                    String textDisplay = "&nbsp;" +answers.get(i);
+                    String textDisplay = "&nbsp;" +answerText;
                     String colorCode = "white";
                     if(i==question.getCorrectAnswer()){
                         colorCode = "yellow";
@@ -182,7 +183,7 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
                     radioButton.setText(Html.fromHtml(textDisplay));
                 }else{
                     radioButton.setButtonDrawable(R.drawable.radio_question_normal);
-                    radioButton.setText(" "+answers.get(i));
+                    radioButton.setText(" "+answerText);
                 }
 
                 radioButton.setVisibility(View.VISIBLE);
