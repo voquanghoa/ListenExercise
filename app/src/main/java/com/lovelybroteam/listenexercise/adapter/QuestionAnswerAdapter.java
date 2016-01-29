@@ -1,34 +1,25 @@
 package com.lovelybroteam.listenexercise.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.text.Html;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.lovelybroteam.listenexercise.R;
-import com.lovelybroteam.listenexercise.controller.QuestionHelper;
+import com.lovelybroteam.listenexercise.control.AnswerRadioButton;
 import com.lovelybroteam.listenexercise.model.ListenContent;
 import com.lovelybroteam.listenexercise.model.Question;
-import com.lovelybroteam.listenexercise.util.GraphicUtil;
 
 import java.util.List;
 
 /**
  * Created by Vo Quang Hoa on 12/22/2015.
  */
-public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton.OnCheckedChangeListener {
+public class QuestionAnswerAdapter extends BaseAdapter implements AnswerRadioButton.OnCheckedChangeListener {
     private Context context;
     private ListenContent listenContent;
     private boolean showAnswer = false;
@@ -45,13 +36,6 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
 
     public QuestionAnswerAdapter(Context context) {
         this.context = context;
-        Resources resources = context.getResources();
-        int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                resources.getDimension(R.dimen.radio_button_result_size),
-                resources.getDisplayMetrics());
-        correctDrawable = resize(GraphicUtil.getDrawable(resources, R.drawable.radio_button_correct), px);
-        incorrectDrawable = resize(GraphicUtil.getDrawable(resources, R.drawable.radio_button_incorrect), px);
-        unselectedDrawable = resize(GraphicUtil.getDrawable(resources, R.drawable.radio_button_not_select), px);
     }
 
     public void setListenContent(ListenContent listenContent){
@@ -61,6 +45,10 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
 
     private void initUserSelect(){
         this.userSelection = new int[listenContent.getQuestions().size()];
+        this.clearUserSelect();
+    }
+
+    public void clearUserSelect(){
         for(int i=0;i<this.userSelection.length;i++){
             this.userSelection[i] = -1;
         }
@@ -113,79 +101,57 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
 
         TextView tvQuestion = (TextView)convertView.findViewById(R.id.question);
         RadioGroup radioGroup = (RadioGroup)convertView.findViewById(R.id.answer_group);
-        RadioButton[] radioButtons = getRadioButtons(convertView);
+        AnswerRadioButton[] radioButtons = getRadioButtons(convertView);
 
         setRadioOnChanged(radioButtons, false);
-        setRadioValue(userSelection[position], radioGroup);
+        setRadioValue(userSelection[position], radioButtons);
         setRadioTag(radioGroup, radioButtons, position);
 
         radioGroup.setEnabled(!showAnswer);
-        setRadioButtonEnable(radioButtons);
         setQuestionText(question, tvQuestion, position);
         setAnswerText(radioButtons, question);
         setRadioOnChanged(radioButtons, true);
         return convertView;
     }
 
-    private RadioButton[] getRadioButtons(View convertView) {
-        return new RadioButton[]{
-                    (RadioButton)convertView.findViewById(R.id.answer_a),
-                    (RadioButton)convertView.findViewById(R.id.answer_b),
-                    (RadioButton)convertView.findViewById(R.id.answer_c),
-                    (RadioButton)convertView.findViewById(R.id.answer_d)
+    private AnswerRadioButton[] getRadioButtons(View convertView) {
+        return new AnswerRadioButton[]{
+                    (AnswerRadioButton)convertView.findViewById(R.id.answer_a),
+                    (AnswerRadioButton)convertView.findViewById(R.id.answer_b),
+                    (AnswerRadioButton)convertView.findViewById(R.id.answer_c),
+                    (AnswerRadioButton)convertView.findViewById(R.id.answer_d)
             };
     }
 
-    private void setRadioValue(int i, RadioGroup radioGroup) {
-        if(i ==-1){
-            radioGroup.check(-1);
-        }else{
-            radioGroup.check(radioButtonId[i]);
+    private void setRadioValue(int selectedIndex, AnswerRadioButton[] answerRadioButtons) {
+        for(int i=0;i<answerRadioButtons.length;i++){
+            answerRadioButtons[i].setChecked(i==selectedIndex);
         }
     }
 
-    private void setRadioTag(RadioGroup radioGroups, RadioButton[] radioButtons, int questionId){
+    private void setRadioTag(RadioGroup radioGroups, AnswerRadioButton[] radioButtons, int questionId){
         radioGroups.setTag(questionId);
-        for (RadioButton radioButton : radioButtons) {
+        for (AnswerRadioButton radioButton : radioButtons) {
             radioButton.setTag(questionId);
         }
     }
 
-    private void setRadioOnChanged(RadioButton[] radioButtons, boolean isSet){
-        for (RadioButton radioButton : radioButtons) {
+    private void setRadioOnChanged(AnswerRadioButton[] radioButtons, boolean isSet){
+        for (AnswerRadioButton radioButton : radioButtons) {
             radioButton.setOnCheckedChangeListener(isSet ? this : null);
         }
     }
 
-    private void setAnswerText(RadioButton[] radioButtons,Question question){
+    private void setAnswerText(AnswerRadioButton[] radioButtons,Question question){
         List<String> answers = question.getAnwers();
         for(int i=0;i<radioButtons.length;i++){
-            RadioButton radioButton = radioButtons[i];
-            radioButton.setPaintFlags(radioButton.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+            AnswerRadioButton radioButton = radioButtons[i];
             if(answers.size() > i){
-                String answerText = answers.get(i).replaceAll("^\\([ABCD]\\)","");
-                if(showAnswer){
-                    String textDisplay = "&nbsp;" +answerText;
-                    String colorCode = "white";
-                    if(i==question.getCorrectAnswer()){
-                        colorCode = "yellow";
-                        radioButton.setButtonDrawable(correctDrawable);
-                    }else{
-                        if(radioButton.isChecked()){
-                            colorCode = "red";
-                            radioButton.setPaintFlags(radioButton.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                            radioButton.setButtonDrawable(incorrectDrawable);
-                        }else{
-                            radioButton.setButtonDrawable(unselectedDrawable);
-                        }
-                    }
-                    textDisplay = QuestionHelper.convertToColor(textDisplay, colorCode);
-                    radioButton.setText(Html.fromHtml(textDisplay));
-                }else{
-                    radioButton.setButtonDrawable(R.drawable.radio_question_normal);
-                    radioButton.setText(" "+answerText);
-                }
-
+                radioButton.setText(answers.get(i));
+                radioButton.setIsCorrect(question.getCorrectAnswer() == i);
+                radioButton.setEnabled(!showAnswer);
+                radioButton.updateIcon();
+                radioButton.updateTextStyle();
                 radioButton.setVisibility(View.VISIBLE);
             }else{
                 radioButton.setVisibility(View.GONE);
@@ -203,13 +169,7 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
         tvQuestion.setText(questionTitle);
     }
 
-    private void setRadioButtonEnable(RadioButton[] radioButtons){
-        for(RadioButton radioButton: radioButtons){
-            radioButton.setEnabled(!showAnswer);
-        }
-    }
-
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+    public void onCheckedChanged(AnswerRadioButton buttonView, boolean isChecked) {
         if(buttonView.isChecked()){
             int questionIndex = (int)buttonView.getTag();
             int viewId = buttonView.getId();
@@ -220,11 +180,5 @@ public class QuestionAnswerAdapter extends BaseAdapter implements CompoundButton
                 }
             }
         }
-    }
-
-    private Drawable resize(Drawable image, int dpSize) {
-        Bitmap b = ((BitmapDrawable)image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, dpSize, dpSize, false);
-        return new BitmapDrawable(context.getResources(), bitmapResized);
     }
 }

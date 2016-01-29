@@ -1,103 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_above="@+id/adView"
     android:background="@drawable/main_menu_background"
-    >
+    android:orientation="vertical"
+    android:weightSum="1280">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20" />
+
+    <com.lovelybroteam.listenexercise.control.EffectImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="343"
+        android:src="@drawable/main_menu_listen_exercise" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/adView"
+        android:layout_height="0dp"
+        android:layout_weight="786"
         android:orientation="vertical"
-        android:weightSum="1772">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="42" />
+        android:weightSum="3">
 
-        <com.lovelybroteam.listenexercise.control.EffectImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="460"
-            android:src="@drawable/main_menu_listen_exercise" />
+        <LinearLayout style="@style/MainMenuRowButton">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="72" />
+            <View style="@style/MainMenuButtonMargin" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1185"
-            android:orientation="vertical"
-            android:weightSum="3">
+            <com.lovelybroteam.listenexercise.control.EffectImageView
+                style="@style/MainMenuButton"
+                android:onClick="onListenClick"
+                android:src="@drawable/main_menu_exercise"
+                android:tag="Exercise" />
 
-            <LinearLayout style="@style/MainMenuRowButton">
+            <com.lovelybroteam.listenexercise.control.EffectImageView
+                style="@style/MainMenuButton"
+                android:onClick="onListenClick"
+                android:src="@drawable/main_menu_toefl_icon"
+                android:tag="TOEFL" />
 
-                <View style="@style/MainMenuButtonMargin" />
-
-                <com.lovelybroteam.listenexercise.control.EffectImageView
-                    style="@style/MainMenuButton"
-                    android:onClick="onListenClick"
-                    android:src="@drawable/main_menu_exercise"
-                    android:tag="Exercise" />
-
-                <com.lovelybroteam.listenexercise.control.EffectImageView
-                    style="@style/MainMenuButton"
-                    android:onClick="onListenClick"
-                    android:src="@drawable/main_menu_toefl_icon"
-                    android:tag="TOEFL" />
-
-                <View style="@style/MainMenuButtonMargin" />
-            </LinearLayout>
-
-            <LinearLayout style="@style/MainMenuRowButton">
-
-                <View style="@style/MainMenuButtonMargin" />
-
-                <com.lovelybroteam.listenexercise.control.EffectImageView
-                    style="@style/MainMenuButton"
-                    android:onClick="onListenClick"
-                    android:src="@drawable/main_menu_toeic"
-                    android:tag="TOEIC" />
-
-                <com.lovelybroteam.listenexercise.control.EffectImageView
-                    style="@style/MainMenuButton"
-                    android:onClick="onListenClick"
-                    android:src="@drawable/main_menu_common_communication"
-                    android:tag="Common_communication" />
-
-                <View style="@style/MainMenuButtonMargin" />
-            </LinearLayout>
-
-            <LinearLayout style="@style/MainMenuRowButton">
-
-                <View style="@style/MainMenuButtonMargin" />
-
-                <com.lovelybroteam.listenexercise.control.EffectImageView
-                    style="@style/MainMenuButton"
-                    android:onClick="onListenClick"
-                    android:src="@drawable/main_menu_daily_english"
-                    android:tag="Daily_english" />
-
-                <com.lovelybroteam.listenexercise.control.EffectImageView
-                    style="@style/MainMenuButton"
-                    android:onClick="onLoveThisAppClick"
-                    android:src="@drawable/main_menu_love_this_app" />
-
-                <View style="@style/MainMenuButtonMargin" />
-            </LinearLayout>
+            <View style="@style/MainMenuButtonMargin" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="21" />
+        <LinearLayout style="@style/MainMenuRowButton">
+
+            <View style="@style/MainMenuButtonMargin" />
+
+            <com.lovelybroteam.listenexercise.control.EffectImageView
+                style="@style/MainMenuButton"
+                android:onClick="onListenClick"
+                android:src="@drawable/main_menu_toeic"
+                android:tag="TOEIC" />
+
+            <com.lovelybroteam.listenexercise.control.EffectImageView
+                style="@style/MainMenuButton"
+                android:onClick="onListenClick"
+                android:src="@drawable/main_menu_common_communication"
+                android:tag="Common_communication" />
+
+            <View style="@style/MainMenuButtonMargin" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/MainMenuRowButton">
+
+            <View style="@style/MainMenuButtonMargin" />
+
+            <com.lovelybroteam.listenexercise.control.EffectImageView
+                style="@style/MainMenuButton"
+                android:onClick="onListenClick"
+                android:src="@drawable/main_menu_daily_english"
+                android:tag="Daily_english" />
+
+            <com.lovelybroteam.listenexercise.control.EffectImageView
+                style="@style/MainMenuButton"
+                android:onClick="onLoveThisAppClick"
+                android:src="@drawable/main_menu_love_this_app" />
+
+            <View style="@style/MainMenuButtonMargin" />
+        </LinearLayout>
     </LinearLayout>
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/adView"
-        style="@style/AdsPanel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_weight="111"
         />
-</RelativeLayout>
+</LinearLayout>

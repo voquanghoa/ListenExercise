@@ -16,25 +16,26 @@
         android:layout_marginBottom="@dimen/question_margin_bottom"
         android:layout_marginTop="@dimen/question_margin_top"
         android:textColor="#ff0"
+        android:textSize="@dimen/listen_text_size"
         style="@style/QuestionText"
         />
     <RadioGroup
         android:id="@+id/answer_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <RadioButton
+        <com.lovelybroteam.listenexercise.control.AnswerRadioButton
             android:id="@+id/answer_a"
             style="@style/QuestionText"
             />
-        <RadioButton
+        <com.lovelybroteam.listenexercise.control.AnswerRadioButton
             android:id="@+id/answer_b"
             style="@style/QuestionText"
             />
-        <RadioButton
+        <com.lovelybroteam.listenexercise.control.AnswerRadioButton
             android:id="@+id/answer_c"
             style="@style/QuestionText"
             />
-        <RadioButton
+        <com.lovelybroteam.listenexercise.control.AnswerRadioButton
             android:id="@+id/answer_d"
             style="@style/QuestionText"
             />

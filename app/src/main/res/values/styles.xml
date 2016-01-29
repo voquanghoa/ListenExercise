@@ -71,7 +71,7 @@
         <item name="android:layout_height">match_parent</item>
     </style>
     <style name="AdsPanel">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>
@@ -98,18 +98,15 @@
         <item name="android:layout_margin">5dp</item>
     </style>
     <style name="SubmitButtonStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">2</item>
+        <item name="android:layout_width">@dimen/submit_button_width</item>
+        <item name="android:layout_margin">@dimen/submit_button_margin</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
         <item name="android:src">@drawable/button_finish_submit_background</item>
     </style>
     <style name="QuestionText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">left|center_vertical</item>
-        <item name="android:textSize">@dimen/listen_text_size</item>
-        <item name="android:button">@drawable/radio_question_normal</item>
-        <item name="android:textColor">@color/white</item>
     </style>
     <style name="AppTitleText">
         <item name="android:layout_width">match_parent</item>

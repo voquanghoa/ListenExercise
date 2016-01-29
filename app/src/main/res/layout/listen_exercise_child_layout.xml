@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,5 +23,14 @@
         android:orientation="vertical"
         >
     </LinearLayout>
-    <include layout="@layout/submit_button_layout" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <com.lovelybroteam.listenexercise.control.EffectImageView
+            android:id="@+id/button_submit"
+            style="@style/SubmitButtonStyle" />
+        </LinearLayout>
 </LinearLayout>

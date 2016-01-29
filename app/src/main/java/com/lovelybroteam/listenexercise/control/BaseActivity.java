@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -44,7 +44,7 @@ public class BaseActivity extends Activity implements DialogInterface.OnCancelLi
     }
 
     protected void loadBannerAds(){
-        RelativeLayout adsLayout = (RelativeLayout)findViewById(R.id.adView);
+        ViewGroup adsLayout = (ViewGroup)findViewById(R.id.adView);
         if(adsLayout!=null){
             String AD_UNIT_ID = getString(R.string.admob_id);
             adView = new AdView(this);

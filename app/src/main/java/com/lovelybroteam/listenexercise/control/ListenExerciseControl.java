@@ -50,11 +50,16 @@ public class ListenExerciseControl extends ListenControl{
         questionAnswerAdapter.setShowAnswer(false);
         questionAnswerAdapter.setListenContent(listenContent);
         effectImageViewSubmit.setActivated(false);
-        refreshView();
+        refreshView(true);
     }
 
-    public void refreshView() {
+    public void refreshView(boolean isNewContent) {
         displayScriptText(listenContent.getScript());
+        if(isNewContent){
+            questionAnswerAdapter.clearUserSelect();
+            questionAnswerAdapter.setShowAnswer(false);
+        }
+
         ((ScrollView)this.getParent()).scrollTo(0, 0);
         questionListView.removeAllViews();
         internetImageView.setUrl(currentFileName+ AppConstant.PICTURE_FILE_EXTENSION);
@@ -90,7 +95,7 @@ public class ListenExerciseControl extends ListenControl{
                 new Runnable() {
                     public void run() {
                         questionAnswerAdapter.setShowAnswer(true);
-                        refreshView();
+                        refreshView(false);
                     }
                 }
         );

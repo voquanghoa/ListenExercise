@@ -15,7 +15,7 @@ import com.lovelybroteam.listenexercise.model.ListenContent;
 /**
  * Created by Vo Quang Hoa on 1/26/2016.
  */
-public class ListenControl extends RelativeLayout implements View.OnClickListener {
+public abstract class ListenControl extends RelativeLayout implements View.OnClickListener {
     private TextView scriptTextView;
     private EffectImageView effectImageViewSubmit;
     private LinearLayout dialogTextLayout;
