@@ -80,6 +80,10 @@ public class ListenExerciseControl extends ListenControl{
         if(questionAnswerAdapter.isShowAnswer()){
             super.onClick(v);
         }else{
+            if(!questionAnswerAdapter.isFinish()){
+                ((BaseActivity)getContext()).showMessage(R.string.not_finish_yet_warning);
+                return;
+            }
             effectImageViewSubmit.setActivated(true);
             questionAnswerAdapter.setShowAnswer(true);
             showConversationDialog(true);

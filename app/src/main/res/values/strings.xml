@@ -25,4 +25,5 @@
 
     <string name="audio_loading_warning">Buffering. Please wait...</string>
     <string name="audio_loaded_error">Can not play the audio file. Please check your internet connection and back later.</string>
+    <string name="not_finish_yet_warning">Please select your answer for all questions.</string>
 </resources>

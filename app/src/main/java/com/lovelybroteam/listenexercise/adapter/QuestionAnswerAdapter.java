@@ -181,4 +181,13 @@ public class QuestionAnswerAdapter extends BaseAdapter implements AnswerRadioBut
             }
         }
     }
+
+    public boolean isFinish() {
+        for(int i=0;i<getCount();i++){
+            if(userSelection[i]==-1){
+                return false;
+            }
+        }
+        return true;
+    }
 }

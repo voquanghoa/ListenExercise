@@ -71,6 +71,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
     }
 
     private void loadData(String folder, DataItem dataItem){
+        customMediaControl.setPlayState(false);
         appTitleControl.setTitle(dataItem.getDisplay());
         customSeekBar.setPercent(0);
         customSeekBar.setBufferPercent(0);
