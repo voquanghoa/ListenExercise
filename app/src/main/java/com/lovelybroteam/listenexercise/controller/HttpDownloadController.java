@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 /**
  * Created by Vo Quang Hoa on 12/21/2015.
@@ -66,7 +67,7 @@ public class HttpDownloadController implements AppConstant {
             httpConn.setRequestMethod("GET");
             httpConn.connect();
 
-            if(isStopped){
+            if (isStopped) {
                 isStopped = false;
                 downloadHandler.onDownloadFail(DownloadFailReason.CANCELED, 0);
                 return;
@@ -86,7 +87,7 @@ public class HttpDownloadController implements AppConstant {
                     downloadedSize += bufferLength;
                     downloadHandler.onDownloadProgress(downloadedSize, totalSize);
 
-                    if(isStopped){
+                    if (isStopped) {
                         isStopped = false;
                         downloadHandler.onDownloadFail(DownloadFailReason.CANCELED, 0);
                         inputStream.close();
@@ -98,15 +99,18 @@ public class HttpDownloadController implements AppConstant {
                 inputStream.close();
                 byteArrayOutputStream.close();
                 downloadHandler.onDownloadDone(downloadUrl, byteArrayOutputStream.toByteArray());
-            }else{
-                if(responseCode == HttpURLConnection.HTTP_NOT_FOUND){
+            } else {
+                if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
                     downloadHandler.onDownloadFail(DownloadFailReason.NOT_FOUND, responseCode);
                     Utils.Log(new Exception("Can not download file " + downloadUrl));
-                }else {
+                } else {
                     downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, responseCode);
                     Utils.Log(new Exception("Can not download file " + downloadUrl));
                 }
             }
+        }catch (UnknownHostException e){
+            downloadHandler.onDownloadFail(DownloadFailReason.NO_INTERNET, 0);
+            Utils.Log(e);
         } catch (MalformedURLException|ProtocolException e) {
             downloadHandler.onDownloadFail(DownloadFailReason.INTERRUPT, 0);
             Utils.Log(e);

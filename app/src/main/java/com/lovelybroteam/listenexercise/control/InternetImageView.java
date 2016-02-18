@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import com.lovelybroteam.listenexercise.R;
 import com.lovelybroteam.listenexercise.controller.HttpDownloadController;
 
 /**
@@ -47,7 +48,11 @@ public class InternetImageView extends ImageView implements HttpDownloadControll
     }
 
     public void onDownloadFail(HttpDownloadController.DownloadFailReason reason, int reasonCode) {
-        ((Activity)getContext()).runOnUiThread(new Runnable() {
+        BaseActivity baseActivity = ((BaseActivity)getContext());
+        if(reason == HttpDownloadController.DownloadFailReason.NO_INTERNET){
+            baseActivity.showMessage(R.string.download_fail_message);
+        }
+        baseActivity.runOnUiThread(new Runnable() {
             public void run() {
                 InternetImageView.this.setVisibility(GONE);
             }

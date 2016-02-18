@@ -9,17 +9,20 @@ import android.view.View;
 import com.google.android.gms.ads.AdListener;
 import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.control.BaseActivity;
+import com.lovelybroteam.listenexercise.controller.AssertDataController;
 import com.lovelybroteam.listenexercise.controller.DataController;
 import com.lovelybroteam.listenexercise.controller.HttpDownloadController;
 import com.lovelybroteam.listenexercise.helper.SocialHelper;
 import com.lovelybroteam.listenexercise.util.Utils;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends BaseActivity implements HttpDownloadController.IDownload {
     private String currentSelectTag;
     private AlertDialog  loveAppDialog;
     private SocialHelper socialHelper;
+    private String dataFail = "";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
@@ -30,6 +33,25 @@ public class MainActivity extends BaseActivity implements HttpDownloadController
             }
         });
         socialHelper = new SocialHelper(this);
+        loadDataJson();
+    }
+
+    private void loadDataJson(){
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String data = AssertDataController.getInstance().loadFile(MainActivity.this,AppConstant.JSON_DATA_FILE);
+                    DataController.getInstance().loadDataItem(data);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    Utils.Log(e);
+                    dataFail = e.getMessage();
+                } catch (IOException e) {
+                    Utils.Log(e);
+                    dataFail = e.getMessage();
+                }
+            }
+        }).start();
     }
 
     public void onBackPressed() {
@@ -52,32 +74,15 @@ public class MainActivity extends BaseActivity implements HttpDownloadController
 
     public void onListenClick(View view){
         currentSelectTag = view.getTag().toString();
-        if(DataController.getInstance().getDataItem()==null){
-            showLoadingDialog();
-            HttpDownloadController.getInstance().startDownload(AppConstant.JSON_DATA_FILE, this);
-        }else{
-            showList();
+        if(dataFail != ""){
+            showMessage(dataFail);
+            return;
         }
-    }
-
-    private void showList(){
         DataController.getInstance().setCurrentDataItem(currentSelectTag);
         if(DataController.getInstance().getCurrentDataItem() == null){
             showMessage(R.string.function_is_not_available);
         }else {
             startActivity(new Intent(this, ListItemActivity.class));
-        }
-    }
-
-    public void onDownloadDone(String url, byte[] data) {
-        super.onDownloadDone(url, data);
-        try {
-            String response = new String(data, "UTF-8");
-            DataController.getInstance().loadDataItem(response);
-            showList();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            Utils.Log(e);
         }
     }
 

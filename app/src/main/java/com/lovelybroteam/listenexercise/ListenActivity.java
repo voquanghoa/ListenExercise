@@ -7,19 +7,17 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.lovelybroteam.listenexercise.api.IAudioMediaPlayerListener;
-import com.lovelybroteam.listenexercise.constant.AppConstant;
 import com.lovelybroteam.listenexercise.control.BaseActivity;
 import com.lovelybroteam.listenexercise.control.CustomMediaControl;
 import com.lovelybroteam.listenexercise.control.CustomSeekBar;
 import com.lovelybroteam.listenexercise.control.ListenExerciseControl;
 import com.lovelybroteam.listenexercise.control.PureListenControl;
+import com.lovelybroteam.listenexercise.controller.AssertDataController;
 import com.lovelybroteam.listenexercise.controller.DataController;
-import com.lovelybroteam.listenexercise.controller.HttpDownloadController;
 import com.lovelybroteam.listenexercise.controller.ListenContentController;
 import com.lovelybroteam.listenexercise.model.DataItem;
 import com.lovelybroteam.listenexercise.model.ListenContent;
 import com.lovelybroteam.listenexercise.player.AudioMediaPlayer;
-import com.lovelybroteam.listenexercise.util.ActivityHelper;
 import com.lovelybroteam.listenexercise.util.Utils;
 
 import java.io.IOException;
@@ -81,8 +79,7 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         } catch (IOException e) {
             Utils.Log(e);
         }
-        showLoadingDialog();
-        HttpDownloadController.getInstance().startDownload(folder + dataItem.getFileName() + TEXT_FILE_EXTENSION, this);
+        loadTextContext(folder + dataItem.getFileName());
     }
 
     private void reInitAudioMediaPlayer() {
@@ -100,12 +97,10 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
         }
     }
 
-    public void onDownloadDone(final String url, byte[] data) {
-        super.onDownloadDone(url, data);
-        final String currentFileName = url.replace(AppConstant.SERVER_BASE_PATH, "").
-                replace(AppConstant.TEXT_FILE_EXTENSION, "");
+    public void loadTextContext(final String currentFileName) {
+
         try {
-            final String content = new String(data, AppConstant.CHARSET);
+            final String content = AssertDataController.getInstance().loadFile(this, currentFileName+TEXT_FILE_EXTENSION);
             ListenContentController.getInstance().loadJson(content);
 
 
@@ -127,6 +122,10 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
             });
         } catch (UnsupportedEncodingException e) {
             Utils.Log(e);
+            showMessage(e.getMessage());
+        } catch (IOException e) {
+            Utils.Log(e);
+            showMessage(e.getMessage());
         }
     }
 
@@ -143,15 +142,6 @@ public class ListenActivity extends BaseActivity implements IAudioMediaPlayerLis
 
     public void onLoadAudioDone(int duration) {
         showCurrentPosition();
-    }
-
-    public void onDownloadFail(HttpDownloadController.DownloadFailReason reason, int codeMessage) {
-        closeLoadingDialog();
-        ActivityHelper.showModalDialog(ListenActivity.this, R.string.download_fail, R.string.download_fail_exit, new Runnable() {
-            public void run() {
-                ListenActivity.this.finish();
-            }
-        });
     }
 
     public void onLoadAudioError() {
