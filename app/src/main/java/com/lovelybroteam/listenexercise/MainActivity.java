@@ -37,21 +37,23 @@ public class MainActivity extends BaseActivity implements HttpDownloadController
     }
 
     private void loadDataJson(){
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    String data = AssertDataController.getInstance().loadFile(MainActivity.this,AppConstant.JSON_DATA_FILE);
-                    DataController.getInstance().loadDataItem(data);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    Utils.Log(e);
-                    dataFail = e.getMessage();
-                } catch (IOException e) {
-                    Utils.Log(e);
-                    dataFail = e.getMessage();
+        if(DataController.getInstance().getDataItem()==null) {
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        String data = AssertDataController.getInstance().loadFile(MainActivity.this, AppConstant.JSON_DATA_FILE);
+                        DataController.getInstance().loadDataItem(data);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                        Utils.Log(e);
+                        dataFail = e.getMessage();
+                    } catch (IOException e) {
+                        Utils.Log(e);
+                        dataFail = e.getMessage();
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        }
     }
 
     public void onBackPressed() {
